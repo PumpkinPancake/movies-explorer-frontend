@@ -1,0 +1,101 @@
+.burger__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.burger__menu {
+  position: absolute;
+  background-color: white;
+  z-index: 10000;
+  top: 0;
+  right: 0;
+  align-items: center;
+  box-sizing: border-box;
+  width: 66%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.burger__close-button {
+  border: none;
+  background-color: white;
+  transition: all .2s ease-out;
+}
+
+.burger__close-button:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+.burger__list {
+  margin: 160px 0 0 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.burger__link_active {
+  border-bottom: 2px solid black;
+  padding-bottom: 7px;
+}
+
+.burger__link {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.burger__link:hover {
+  cursor: pointer;
+  opacity: 60%;
+}
+
+.burger__close-button {
+  background-position: center;
+  border: 0;
+  position: absolute;
+  top: 22.44px;
+  right: 22.44px;
+  padding: 0;
+  background-image: url("../images/close-button.svg");
+  background-repeat: no-repeat;
+  width: 22px;
+  height: 22px;
+}
+
+.burger__button-profile {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 600;
+  border: 2px solid #aaa;
+  padding: 8px 12px;
+  border-radius: 50px;
+  background-color: white;
+  margin: 0 0 90px 0;
+  transition: all .2s ease-out;
+}
+
+.burger__button-profile:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+    .burger__menu {
+        width: 100%;
+    }
+}

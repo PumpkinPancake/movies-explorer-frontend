@@ -1,0 +1,97 @@
+.card {
+  margin: 0 auto;
+  padding: 0;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 4px 0 rgba(32, 32, 47, .3);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  max-width: 360px;
+  max-height: 319px;
+}
+
+.card__wrapper {
+  margin: 18px auto;
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 2 * 18px);
+}
+
+.card__title {
+  margin: 0;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 500;
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card__duration {
+  margin: 0;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+  color: #a0a0a0;
+}
+
+.card__img {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  max-height: 200px;
+  aspect-ratio: 1/1;
+}
+
+.card__button {
+  font-size: 12px;
+  line-height: 11px;
+  font-weight: 500;
+  padding: 9px 15px;
+  width: 100px;
+  height: 29px;
+  border: none;
+  background-color: #f9f9f9;
+  border-radius: 30px;
+  margin: 18px 0;
+  transition: all 0.2s ease-out;
+  align-self: center;
+}
+
+.card__button:hover {
+  opacity: 0.6;
+}
+
+.card__button_saved {
+  background-color: #ee3465;
+}
+
+.card__icon-chesk {
+  width: 8px;
+  height: 5px;
+  padding: 0 0 3px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    max-width: 342px;
+    max-height: 309px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .card {
+    max-width: 300px;
+    max-height: 271px;
+  }
+
+  .card__title {
+    font-size: 12px;
+  }
+
+  .card__button {
+    margin: 14px 0;
+  }
+}
