@@ -82,7 +82,7 @@ export default function Header({ loggedIn }) {
           <ul className="header__buttons">
             <li>
               <Link
-                to="/register"
+                to="/signup"
                 className="header__button header__button-register"
               >
                 Регистрация
@@ -90,7 +90,7 @@ export default function Header({ loggedIn }) {
             </li>
             <li>
               <Link
-                to="/login"
+                to="/signin"
                 className="header__button header__button-entry"
                 type="button"
               >
@@ -98,6 +98,18 @@ export default function Header({ loggedIn }) {
               </Link>
             </li>
           </ul>
+          <button
+            onClick={handleOpenBurger}
+            className="header__burger-button"
+            type="button"
+          >
+            <img
+              src={menuImg}
+              className="burger-menu__img"
+              alt="Иконка меню"
+            ></img>
+          </button>
+          <Burger isOpen={burgerOpened} onClose={handleOpenBurger} />
         </header>
       )}
     </>

@@ -33,7 +33,7 @@ export default function Movies() {
 
   return (
     <>
-      <Header />
+      <main>
       <section className="movies">
         <SearchForm
           isShortFilmFilterActive={isShortFilmFilterActive}
@@ -46,6 +46,7 @@ export default function Movies() {
           searchQuery={searchQuery}
         />
       </section>
+      </main>
       <Footer />
     </>
   );

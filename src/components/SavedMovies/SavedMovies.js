@@ -1,15 +1,27 @@
+import React, { useState } from "react";
 import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import SearchForm from "../Movies/SearchForm/SearchForm";
 
 export default function SavedMovies() {
+  const [isShortFilmFilterActive, setIsShortFilmFilterActive] = useState(false);
+  const savedMoviesData = [];
+
+  const handleShortFilmFilterChange = () => {
+    setIsShortFilmFilterActive(!isShortFilmFilterActive);
+  };
+
   return (
     <>
-      <Header />
       <section className="saved-movies">
-        <SearchForm />
-        <MoviesCardList />
+        <SearchForm
+          checked={isShortFilmFilterActive}
+          onChange={handleShortFilmFilterChange}
+        />
+        <MoviesCardList
+          isShortFilmFilterActive={isShortFilmFilterActive}
+          moviesData={savedMoviesData}
+        />
       </section>
       <Footer />
     </>

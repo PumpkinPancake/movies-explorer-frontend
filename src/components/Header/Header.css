@@ -9,6 +9,7 @@
 
 .header__logo {
   padding: 18px 0;
+  cursor: pointer;
 }
 
 .header__buttons {
@@ -95,6 +96,10 @@
   }
 
   .header__button-profile {
+    display: none;
+  }
+
+  .header__buttons {
     display: none;
   }
 }

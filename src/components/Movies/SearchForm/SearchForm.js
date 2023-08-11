@@ -9,11 +9,12 @@ export default function SearchForm({
   onSearch,
 }) {
   const [isChecked, setIsChecked] = useState(false);
-  const { values, setValues, handleChange } = useFormValidation();
   const [searchQuery, setSearchQuery] = useState("");
+  const [onChange, setOnChange] = useState();
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
+    setOnChange(!isChecked);
     setIsShortFilmFilterActive(!isShortFilmFilterActive);
   };
 
