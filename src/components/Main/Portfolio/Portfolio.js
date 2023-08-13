@@ -32,6 +32,7 @@ export default function Portfolio() {
             <a
               href="https://github.com/PumpkinPancake/react-mesto-api-full-gha"
               className="portfolio__link"
+              target="blank"
             >
               Одностраничное приложение
             </a>
