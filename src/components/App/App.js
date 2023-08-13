@@ -25,11 +25,11 @@ function App() {
 
         <Route path="/profile" element={<Profile />}></Route>
         <Route
-          path="/register"
-          element={<Register handleRegister={() => navigate("/login")} />}
+          path="/signup"
+          element={<Register handleRegister={() => navigate("/signin")} />}
         ></Route>
 
-        <Route path="/login" element={<Login />}></Route>
+        <Route path="/signin" element={<Login />}></Route>
         <Route path="/movies" element={<Movies />}></Route>
         <Route path="/saved-movies" element={<SavedMovies />} />
         <Route

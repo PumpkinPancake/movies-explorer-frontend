@@ -34,7 +34,7 @@
 
 .portfolio__link::before {
   content: "";
-  top: 0;
+  top: 10px;
   right: 0;
   position: absolute;
   width: 20px;
@@ -95,5 +95,18 @@
   .portfolio__link {
     font-size: 18px;
     line-height: 28px;
+  }
+
+  .portfolio__link::before {
+    content: "";
+    top: 22px;
+    right: 0;
+    position: absolute;
+    width: 20px;
+    height: 68px;
+    background-image: url("../../images/arrow-link.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 }
