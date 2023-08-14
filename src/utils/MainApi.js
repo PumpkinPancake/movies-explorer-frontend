@@ -8,12 +8,18 @@ class MainApi {
   }
 
   _handleResponce(res) {
+    console.log("Response status:", res.status);
+
     if (res.ok) {
       return res.json();
     }
+
     if (res.status === 401) {
       console.log("Unauthorized error:", res);
     }
+
+    console.log("Error response:", res);
+
     return Promise.reject(new Error(`Ошибка: ${res.status}`));
   }
 
@@ -53,8 +59,7 @@ class MainApi {
         authorization: `Bearer ${localStorage.getItem("jwt")}`,
         "Content-Type": "application/json",
       },
-    })
-    .then(this._handleResponce);
+    }).then(this._handleResponce);
   }
 
   setUserInfo({ name, email }) {
@@ -78,10 +83,7 @@ class MainApi {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    }).then((response) => {
-      console.log("Token response:", response);
-      return this._handleResponse(response);
-    });
+    }).then(this._handleResponce);
   }
 
   editUser(name, email) {
@@ -130,7 +132,9 @@ class MainApi {
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
       }),
-    }).then((res) => this._handleResponce(res));
+    }).then((res) => {
+      this._handleResponce(res);
+    });
   }
 
   getUserMovies() {

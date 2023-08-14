@@ -52,6 +52,7 @@ function App() {
       .getToken(jwt)
       .then((res) => {
         if (res) {
+          console.log("токен", jwt)
           mainApi.getUserInfo().then((userInfo) => {
             setCurrentUser(userInfo);
             setLoggedIn(true);
@@ -59,8 +60,7 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log("Error response:", err.response);
-        console.log("Error message:", err.message);
+        console.log(err);
       });
   };
 

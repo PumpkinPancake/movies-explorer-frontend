@@ -8,21 +8,29 @@ import "./MoviesCard.css";
 
 export default function MoviesCard(props) {
   const location = useLocation();
-  const [isSave, setIsSave] = useState(false);
+  const [isSave, setIsSave] = useState(props.isSaved);
 
-  const buttonClass =
-    location.pathname === "/movies"
-      ? isSave
-        ? "card__button_saved"
-        : ""
-      : location.pathname === "/saved-movies"
-      ? isSave
-        ? "card__button_del"
-        : ""
-      : "";
+  // const buttonClass =
+  //   location.pathname === "/movies"
+  //     ? isSave
+  //       ? "card__button_saved"
+  //       : ""
+  //     : location.pathname === "/saved-movies"
+  //     ? isSave
+  //       ? "card__button_del"
+  //       : ""
+  //     : "";
+
+  const buttonClass = location.pathname === '/movies' ? 'card__button' : location.pathname === '/saved-movies' ? 'card__button_del' : '';
 
   function handleClickSave() {
-    setIsSave(!isSave);
+    const newIsSave = !isSave;
+    setIsSave(newIsSave);
+
+    if (props.onMovieSave) {
+      console.log("Calling onMovieSave with:", props, newIsSave);
+      props.onMovieSave(props, newIsSave);
+    }
   }
 
   const openTrailerLink = () => {
@@ -45,24 +53,20 @@ export default function MoviesCard(props) {
         <h3 className="card__title">{props.title}</h3>
         <p className="card__duration">{displayDuration(props.duration)}</p>
       </div>
-        <a
-          onClick={openTrailerLink}
-          className="card__link"
-          href={props.trailerLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            className="card__img"
-            src={props.imageUrl}
-            alt={props.title}
-          ></img>
-        </a>
+      <a
+        onClick={openTrailerLink}
+        className="card__link"
+        href={props.trailerLink}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img className="card__img" src={props.imageUrl} alt={props.title}></img>
+      </a>
       <button
         className={`card__button ${buttonClass}`}
         onClick={handleClickSave}
       >
-        {location.pathname === "/movies" ? (
+        {/* {location.pathname === "/movies" ? (
           isSave ? (
             <img src={iconChesk} alt="Сохранить" className="card__icon-chesk" />
           ) : (
@@ -75,7 +79,8 @@ export default function MoviesCard(props) {
           <img src={delBtn} alt="Удалить" className="card__icon-del" />
         ) : (
           ""
-        )}
+        )} */}
+         {location.pathname === '/movies' ? 'Сохранить' : <img src={delBtn} alt="Удалить" className="card__icon-del" />}
       </button>
     </div>
   );

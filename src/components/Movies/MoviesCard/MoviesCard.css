@@ -58,6 +58,7 @@
   margin: 18px 0;
   transition: all 0.2s ease-out;
   align-self: center;
+  cursor: pointer;
 }
 
 .card__button:hover {

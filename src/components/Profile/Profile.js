@@ -47,7 +47,6 @@ export default function Profile({ handleLogout }) {
   };
 
   const handleEditClick = () => {
-    console.log("Editing clicked");
     setIsEditing(!isEditing);
   };
 
@@ -55,7 +54,6 @@ export default function Profile({ handleLogout }) {
     e.preventDefault();
 
     setIsLoading(true);
-    console.log("Submitting form:", formValue);
 
     mainApi
       .setUserInfo(formValue)
