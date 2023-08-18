@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import delBtn from "../../images/del_button.svg";
 import { useLocation } from "react-router-dom";
 import iconChesk from "../../images/icon-chesk.svg";
@@ -10,18 +10,16 @@ export default function MoviesCard(props) {
   const location = useLocation();
   const [isSave, setIsSave] = useState(props.isSaved);
 
-  // const buttonClass =
-  //   location.pathname === "/movies"
-  //     ? isSave
-  //       ? "card__button_saved"
-  //       : ""
-  //     : location.pathname === "/saved-movies"
-  //     ? isSave
-  //       ? "card__button_del"
-  //       : ""
-  //     : "";
-
-  const buttonClass = location.pathname === '/movies' ? 'card__button' : location.pathname === '/saved-movies' ? 'card__button_del' : '';
+  const buttonClass =
+    location.pathname === "/movies"
+      ? isSave
+        ? "card__button_saved"
+        : ""
+      : location.pathname === "/saved-movies"
+      ? isSave
+        ? "card__button_del"
+        : ""
+      : "";
 
   function handleClickSave() {
     const newIsSave = !isSave;
@@ -66,7 +64,7 @@ export default function MoviesCard(props) {
         className={`card__button ${buttonClass}`}
         onClick={handleClickSave}
       >
-        {/* {location.pathname === "/movies" ? (
+        {location.pathname === "/movies" ? (
           isSave ? (
             <img src={iconChesk} alt="Сохранить" className="card__icon-chesk" />
           ) : (
@@ -79,8 +77,7 @@ export default function MoviesCard(props) {
           <img src={delBtn} alt="Удалить" className="card__icon-del" />
         ) : (
           ""
-        )} */}
-         {location.pathname === '/movies' ? 'Сохранить' : <img src={delBtn} alt="Удалить" className="card__icon-del" />}
+        )}
       </button>
     </div>
   );

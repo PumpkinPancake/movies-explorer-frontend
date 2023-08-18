@@ -25,6 +25,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleRegister = () => {
     navigate("/signin");
@@ -42,26 +43,23 @@ function App() {
     navigate("/signin");
   };
 
-  const tokenCheck = () => {
+  const tokenCheck = async () => {
     const jwt = localStorage.getItem("jwt");
-    if (!jwt) {
-      setLoggedIn(false);
-      return;
-    }
-    mainApi
-      .getToken(jwt)
-      .then((res) => {
-        if (res) {
-          console.log("токен", jwt)
-          mainApi.getUserInfo().then((userInfo) => {
-            setCurrentUser(userInfo);
-            setLoggedIn(true);
+    if (jwt) {
+      return mainApi
+        .getToken(jwt)
+        .then((res) => {
+          setLoggedIn(true);
+          setCurrentUser({
+            ...currentUser,
+            ...res,
           });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        })
+        .then(() => {
+          navigate(location, { replace: true });
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   useEffect(() => {

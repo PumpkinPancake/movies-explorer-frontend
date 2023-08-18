@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useLocation } from "react-router-dom";
+import moviesApi from "../../../utils/MoviesApi";
+import mainApi from "../../../utils/MainApi";
 
 export default function MoviesCardList({
   moviesData,
@@ -11,16 +13,30 @@ export default function MoviesCardList({
   const [visibleMoviesCount, setVisibleMoviesCount] = useState(0);
   const [savedMoviesData, setSavedMoviesData] = useState([]);
   const location = useLocation();
+  const inSaveMovies = location.pathname === "/saved-movies";
 
-  // const handleSaveMovie = (movie, isSaved) => {
-  //   console.log("handleSaveMovie called with:", movie, isSaved);
-  //   setSavedMoviesData((prevSavedMovies) => [...prevSavedMovies, movie]);
-  // };
+  useEffect(() => {
+    const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
+    setSavedMoviesData(savedMovies);
+  }, []);
 
-  // useEffect(() => {
-  //   console.log("Updating savedMoviesData:", savedMoviesData);
-  //   localStorage.setItem("savedMovies", JSON.stringify(savedMoviesData));
-  // }, [savedMoviesData]);
+  const handleSaveMovie = async (movie, isSaved) => {
+    console.log("Вызов команды сохранить:", movie);
+    try {
+      await mainApi.saveMovie(movie);
+
+      if (isSaved) {
+        const updatedSavedMovies = savedMoviesData.filter(
+          (savedMovie) => savedMovie._id !== movie._id
+        );
+        setSavedMoviesData(updatedSavedMovies);
+      } else {
+        setSavedMoviesData((prevSavedMovies) => [...prevSavedMovies, movie]);
+      }
+    } catch (error) {
+      console.error("Error while saving movie:", error);
+    }
+  };
 
   const filteredMovies = isShortFilmFilterActive
     ? moviesData.filter((movie) => movie.duration <= 40)
@@ -66,27 +82,31 @@ export default function MoviesCardList({
   return (
     <section className="movies-card">
       <ul className="movies-card__list">
-        {searchedAndFilteredMovies.slice(0, visibleMoviesCount).map((movie, index) => (
-          <li className="movies-card__item" key={index}>
+        {displayedMovies.slice(0, visibleMoviesCount).map((movie) => (
+          <li
+            className="movies-card__item"
+            key={inSaveMovies ? movie._id : movie.id}
+          >
             <MoviesCard
-            imageUrl={movie.imageUrl}
-            title={movie.nameRU}
-            duration={movie.duration}
-            />
-            {/* <MoviesCard
-              imageUrl={`https://api.nomoreparties.co${movie.image.url}`}
+              imageUrl={
+                inSaveMovies
+                  ? movie.imageUrl
+                  : `https://api.nomoreparties.co${movie.image.url}`
+              }
               title={movie.nameRU}
               duration={movie.duration}
               trailerLink={movie.trailerLink}
-              // onMovieSave={handleSaveMovie}
-              // isSaved={savedMoviesData.some(
-              //   (savedMovie) => savedMovie._id === movie._id
-              // )}
-            /> */}
+              onMovieSave={handleSaveMovie}
+              isSaved={savedMoviesData.some(
+                (savedMovie) => savedMovie._id === movie._id
+              )}
+              movieId={movie.id}
+              savedMovie={savedMoviesData}
+            />
           </li>
         ))}
       </ul>
-      {searchedAndFilteredMovies > 0 && (
+      {remainingMovies > 0 && (
         <button
           className="movies-card__more"
           onClick={() =>

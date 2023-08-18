@@ -5,92 +5,76 @@ import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import moviesApi from "../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
-import { moviesData } from "../../utils/content";
 
 export default function Movies() {
-  // const [moviesData, setMoviesData] = useState([]);
+  const [moviesData, setMoviesData] = useState([]);
   const [isShortFilmFilterActive, setIsShortFilmFilterActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [savedMoviesData, setSavedMoviesData] = useState([]);
 
-  // useEffect(() => {
-  //   const savedSearchQuery = localStorage.getItem("searchQuery");
-  //   if (savedSearchQuery) {
-  //     setSearchQuery(savedSearchQuery);
-  //   }
-  //   moviesApi
-  //     .getMovies()
-  //     .then((data) => {
-  //       console.log("Movies data:", data);
-  //       setMoviesData(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Ошибка при получении данных:", error);
-  //     });
+  useEffect(() => {
+    const savedSearchQuery = localStorage.getItem("searchQuery");
+    if (savedSearchQuery) {
+      setSearchQuery(savedSearchQuery);
+    }
 
-  //   // const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
-  //   // setSavedMoviesData(savedMovies);
-  // }, []);
+    moviesApi
+      .getMovies()
+      .then((data) => {
+        console.log("Movies data:", data);
+        setMoviesData(data);
+      })
+      .catch((error) => {
+        console.error("Ошибка при получении данных:", error);
+      });
 
-  // const handleSearch = (query) => {
-  //   setSearchQuery(query);
-  //   localStorage.setItem("searchQuery", query);
-  // };
+    const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
+    setSavedMoviesData(savedMovies);
+  }, []);
 
-  // const handleSaveMovie = (movie, isSaved) => {
-  //   console.log("handleSaveMovie called with:", movie, isSaved);
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    localStorage.setItem("searchQuery", query);
+  };
 
-  //   if (isSaved) {
-  //     console.log("Deleting movie:", movie._id);
+  const handleSaveMovie = (movie) => {
+    const isSaved = savedMoviesData.some(
+      (savedMovie) => savedMovie.movieId === movie.movieId
+    );
 
-  //     mainApi
-  //       .deleteMovie(movie._id)
-  //       .then(() => {
-  //         console.log("Movie deleted:", movie._id);
+    if (isSaved) {
+      // Если фильм уже сохранен, удаляем его
+      const movieToDelete = savedMoviesData.find(
+        (savedMovie) => savedMovie.movieId === movie.movieId
+      );
 
-  //         const updatedSavedMovies = savedMoviesData.filter(
-  //           (savedMovie) => savedMovie._id !== movie._id
-  //         );
-  //         console.log("Updated saved movies:", updatedSavedMovies);
-
-  //         setSavedMoviesData(updatedSavedMovies);
-  //         localStorage.setItem(
-  //           "savedMovies",
-  //           JSON.stringify(updatedSavedMovies)
-  //         );
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error while deleting movie:", error);
-  //       });
-  //   } else {
-  //     console.log("Saving movie:", movie);
-
-  //     mainApi
-  //       .saveMovie(movie)
-  //       .then((savedMovie) => {
-  //         console.log("Movie saved:", savedMovie);
-
-  //         const updatedSavedMovies = [...savedMoviesData, savedMovie];
-  //         console.log("Updated saved movies:", updatedSavedMovies);
-
-  //         setSavedMoviesData(updatedSavedMovies);
-  //         localStorage.setItem(
-  //           "savedMovies",
-  //           JSON.stringify(updatedSavedMovies)
-  //         );
-
-  //         const savedMoviesFromLocalStorage =
-  //           JSON.parse(localStorage.getItem("savedMovies")) || [];
-  //         console.log(
-  //           "savedMovies from localStorage:",
-  //           savedMoviesFromLocalStorage
-  //         );
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error while saving movie:", error);
-  //       });
-  //   }
-  // };
+      mainApi.deleteMovie(movieToDelete._id)
+        .then(() => {
+          console.log("Movie deleted:", movieToDelete._id);
+          const updatedSavedMovies = savedMoviesData.filter(
+            (savedMovie) => savedMovie._id !== movieToDelete._id
+          );
+          setSavedMoviesData(updatedSavedMovies);
+          localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+        })
+        .catch((error) => {
+          console.error("Error while deleting movie:", error);
+        });
+    } else {
+      // Если фильм не сохранен, сохраняем его
+      mainApi
+        .saveMovie(movie)
+        .then((savedMovie) => {
+          console.log("Movie saved:", savedMovie);
+          const updatedSavedMovies = [...savedMoviesData, savedMovie];
+          setSavedMoviesData(updatedSavedMovies);
+          localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+        })
+        .catch((error) => {
+          console.error("Error while saving movie:", error);
+        });
+    }
+  };
 
   return (
     <>
@@ -99,14 +83,14 @@ export default function Movies() {
           <SearchForm
             isShortFilmFilterActive={isShortFilmFilterActive}
             setIsShortFilmFilterActive={setIsShortFilmFilterActive}
-            // onSearch={handleSearch}
+            onSearch={handleSearch}
           />
           <MoviesCardList
             moviesData={moviesData}
-            // isShortFilmFilterActive={isShortFilmFilterActive}
-            // searchQuery={searchQuery}
-            // savedMoviesData={savedMoviesData}
-            // onMovieSave={handleSaveMovie}
+            isShortFilmFilterActive={isShortFilmFilterActive}
+            searchQuery={searchQuery}
+            savedMoviesData={savedMoviesData}
+            handleSaveMovie={handleSaveMovie}
           />
         </section>
       </main>

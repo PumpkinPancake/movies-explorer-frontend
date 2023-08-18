@@ -112,11 +112,12 @@ class MainApi {
   }
 
   saveMovie(movie) {
+    console.log("Saving movie with data:", movie);
     return fetch(`${this._url}/movies`, {
       method: "POST",
       headers: {
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        "Content-Type": "application/json",
+        ...this._headers,
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: JSON.stringify({
         country: movie.country,
@@ -124,17 +125,14 @@ class MainApi {
         duration: movie.duration,
         year: movie.year,
         description: movie.description,
-        image: `${MOVIES_API}${movie.image.url}`,
-        trailer: movie.trailerLink,
-        thumbnail: `${MOVIES_API}${movie.image.formats.thumbnail.url}`,
-        movieId: `${movie.id}`,
-
+        image: movie.image,
+        trailerLink: movie.trailerLink,
+        thumbnail: movie.thumbnail,
+        movieId: movie.id,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
       }),
-    }).then((res) => {
-      this._handleResponce(res);
-    });
+    }).then((res) => this._handleResponce(res));
   }
 
   getUserMovies() {
