@@ -50,7 +50,7 @@ export default function MoviesCardList({
             <li className="movies-card__item" key={index}>
               <MoviesCard
                 imageUrl={movie.imageUrl}
-                title={movie.nameRU}
+                title={movie.title}
                 duration={movie.duration}
                 trailerLink={movie.trailerLink}
                 movieId={movie.id}

@@ -71,8 +71,11 @@
 }
 
 @media screen and (max-width: 768px) {
+  .about-me {
+    margin-bottom: 75px;
+  }
   .about-me__container {
-    padding: 90px 0 0 0;
+    padding: 80px 0 0 0;
     width: calc(100% - 2 * 50px);
   }
 

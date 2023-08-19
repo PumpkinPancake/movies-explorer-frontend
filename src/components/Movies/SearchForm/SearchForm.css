@@ -24,6 +24,10 @@
   padding: 7px 7px;
 }
 
+.search-form__label:focus-within {
+  border: 1.5px solid rgba(170, 170, 170, 0.8);
+}
+
 .search-form__label-short {
   border: none;
   margin: 0;

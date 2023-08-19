@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./SearchForm.css";
-import searchImg from "../../images/search-icon.svg";
+import searchImg from "../../../images/search-icon.svg";
 import useFormValidation from "../../Hooks/useFormValidation";
 
 export default function SearchForm({

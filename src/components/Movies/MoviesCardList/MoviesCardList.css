@@ -1,13 +1,13 @@
 .movies-card {
   width: 100%;
-  margin: 75px auto 0;
+  margin: 75px 0 0 20px;
 }
 
 .movies-card__list {
   list-style: none;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, minmax(300px, 360px));
+  grid-template-columns: repeat(3, minmax(320px, 360px));
   grid-template-rows: minmax(319px);
   justify-content: center;
   column-gap: 28px;

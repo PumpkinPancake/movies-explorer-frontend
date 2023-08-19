@@ -1,5 +1,5 @@
 .card {
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
   background-color: white;
   border-radius: 6px;
@@ -12,7 +12,7 @@
 }
 
 .card__wrapper {
-  margin: 28px auto;
+  margin: 20px auto;
   display: flex;
   justify-content: space-between;
   width: calc(100% - 2 * 18px);
@@ -43,6 +43,7 @@
   object-position: center;
   max-height: 200px;
   aspect-ratio: 1/1;
+  cursor: pointer;
 }
 
 .card__button {
@@ -55,7 +56,7 @@
   border: none;
   background-color: #f9f9f9;
   border-radius: 30px;
-  margin: 18px 0;
+  margin: 13px 0;
   transition: all 0.2s ease-out;
   align-self: center;
   cursor: pointer;

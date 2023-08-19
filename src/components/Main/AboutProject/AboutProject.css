@@ -62,9 +62,25 @@
 }
 
 @media screen and (max-width: 768px) {
+.about-project {
+  margin-top: 85px;
+}
+
   .about-project__container {
     width: calc(100% - 2 * 50px);
     padding-bottom: 70px;
+  }
+
+  .about-project__list {
+    padding-top: 70px;
+  }
+
+  .about-project__title {
+    padding-bottom: 15px;
+  }
+
+  .about-project__bar {
+    padding: 90px 0 0 0;
   }
 }
 

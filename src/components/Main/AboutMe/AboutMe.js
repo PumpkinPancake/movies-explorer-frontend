@@ -1,5 +1,5 @@
 import './AboutMe.css';
-import photo from '../../images/photo_me.jpg';
+import photo from '../../../images/photo_me.jpg';
 import SectionTitle from '../SectionTitle/SectionTitle';
 
 export default function AboutMe() {

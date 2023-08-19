@@ -14,6 +14,7 @@ export default function SavedMovies({ handleSaveMovie }) {
 
   return (
     <>
+    <main>
       <section className="saved-movies">
         <SearchForm
           checked={isShortFilmFilterActive}
@@ -26,6 +27,7 @@ export default function SavedMovies({ handleSaveMovie }) {
           handleSaveMovie={handleSaveMovie}
         />
       </section>
+      </main>
       <Footer />
     </>
   );

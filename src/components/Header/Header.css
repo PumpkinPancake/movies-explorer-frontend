@@ -9,6 +9,11 @@
 
 .header__logo {
   padding: 18px 0;
+  transition: all 0.2s ease-out;
+}
+
+.header__logo:hover {
+  opacity: .6;
 }
 
 .header__buttons {
@@ -53,6 +58,11 @@
   font-weight: 400;
   text-decoration: none;
   color: black;
+  transition: all 0.2s ease-out;
+}
+
+.header__link:hover {
+  opacity: .6;
 }
 
 .header__link_active {
@@ -88,6 +98,10 @@
 @media screen and (max-width: 768px) {
   .header__burger-button {
     display: block;
+  }
+
+  .header__buttons {
+    display: none;
   }
 
   .header__list {

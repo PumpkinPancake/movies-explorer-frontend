@@ -3,8 +3,6 @@ import "./Movies.css";
 import SearchForm from "./SearchForm/SearchForm";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
-import moviesApi from "../../utils/MoviesApi";
-import mainApi from "../../utils/MainApi";
 import { moviesData } from "../../utils/content";
 
 export default function Movies() {

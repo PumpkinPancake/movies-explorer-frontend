@@ -1,5 +1,4 @@
 import "./Portfolio.css";
-import arrowLink from "../../images/arrow-link.png";
 
 export default function Portfolio() {
   return (

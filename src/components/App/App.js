@@ -87,6 +87,7 @@ function App() {
           element={
             <>
               <Header loggedIn={loggedIn} />
+
               <Main />
             </>
           }
@@ -97,6 +98,7 @@ function App() {
           element={
             <>
               <Header loggedIn={loggedIn} />
+
               <ProtectedRoute
                 loggedIn={loggedIn}
                 component={Profile}

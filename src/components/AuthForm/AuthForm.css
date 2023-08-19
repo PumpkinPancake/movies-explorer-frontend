@@ -121,11 +121,11 @@
 
 @media screen and (max-width: 768px) {
   .auth-form__img {
-    margin: 232px 0 40px 0;
+    margin: 232px 0 35px 0;
   }
 
   .auth-form__wrapper {
-    margin: 70px 0 232px 0;
+    margin: 220px 0 200px 0;
   }
 }
 
@@ -135,11 +135,19 @@
   }
 
   .auth-form__img {
-    margin: 56px 0 50px 0;
+    margin: 56px 0 40px 0;
+  }
+
+  .auth-form__title {
+    margin: 0 0 85px 0;
   }
 
   .auth-form__form {
     text-align: start;
     max-width: 260px;
+  }
+
+  .auth-form__wrapper {
+    margin: 315px 0 200px 0;
   }
 }

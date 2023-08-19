@@ -51,7 +51,7 @@
 
 @media screen and (max-width: 768px) {
   .tech__container {
-    padding: 90px 0 0 0;
+    padding: 110px 0 0 0;
     width: calc(100% - 2 * 60px);
   }
 
@@ -59,8 +59,12 @@
     margin: 80px 0 22px;
   }
 
+  .tech__subtitle {
+    margin-bottom: 80px;
+  }
+
   .tech__list {
-    grid-template-columns: repeat(auto-fit, 84px);
+    grid-template-columns: repeat(auto-fit, 78px);
   }
 }
 
