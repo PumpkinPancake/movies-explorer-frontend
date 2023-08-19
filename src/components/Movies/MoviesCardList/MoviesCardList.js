@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./MoviesCardList.css";
-
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 export default function MoviesCardList({
@@ -14,13 +13,11 @@ export default function MoviesCardList({
     ? moviesData.filter((movie) => movie.duration <= 40)
     : moviesData;
 
-    const searchedAndFilteredMovies = searchQuery
-    ? filteredMovies.filter(movie =>
-      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+  const searchedAndFilteredMovies = searchQuery
+    ? filteredMovies.filter((movie) =>
+        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : filteredMovies;
-
-  const remainingMovies = filteredMovies.length - visibleMoviesCount;
 
   useEffect(() => {
     const handleResize = () => {
@@ -47,28 +44,29 @@ export default function MoviesCardList({
   return (
     <section className="movies-card">
       <ul className="movies-card__list">
-        {searchedAndFilteredMovies.slice(0, visibleMoviesCount).map((movie, index) => (
-          <li className="movies-card__item" key={index}>
-            <MoviesCard
-              imageUrl={`https://api.nomoreparties.co${movie.image.url}`}
-              title={movie.nameRU}
-              duration={movie.duration}
-              trailerLink={movie.trailerLink}
-              onLikeClick={movie.onLikeClick}
-            />
-          </li>
-        ))}
+        {searchedAndFilteredMovies
+          .slice(0, visibleMoviesCount)
+          .map((movie, index) => (
+            <li className="movies-card__item" key={index}>
+              <MoviesCard
+                imageUrl={movie.imageUrl}
+                title={movie.nameRU}
+                duration={movie.duration}
+                trailerLink={movie.trailerLink}
+                movieId={movie.id}
+              />
+            </li>
+          ))}
       </ul>
-      {remainingMovies > 0 && (
-        <button
-          className="movies-card__more"
-          onClick={() =>
-            setVisibleMoviesCount((prevCount) => prevCount + visibleMoviesCount)
-          }
-        >
-          Еще
-        </button>
-      )}
+
+      <button
+        className="movies-card__more"
+        onClick={() =>
+          setVisibleMoviesCount((prevCount) => prevCount + visibleMoviesCount)
+        }
+      >
+        Еще
+      </button>
     </section>
   );
 }

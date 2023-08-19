@@ -1,7 +1,4 @@
 import { MAIN_API } from "./constants";
-import { MOVIES_API } from "./constants";
-
-export const BASE_URL = "https://auth.nomoreparties.co";
 
 class MainApi {
   constructor(config) {
@@ -10,10 +7,19 @@ class MainApi {
   }
 
   _handleResponce(res) {
+    console.log("Response status:", res.status);
+
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка: ${res.status}`);
+
+    if (res.status === 401) {
+      console.log("Unauthorized error:", res);
+    }
+
+    console.log("Error response:", res);
+
+    return Promise.reject(new Error(`Ошибка: ${res.status}`));
   }
 
   getRegisterUser({ name, email, password }) {
@@ -32,7 +38,6 @@ class MainApi {
     return fetch(`${this._url}/signin`, {
       method: "POST",
       headers: this._headers,
-      credentials: "include",
       body: JSON.stringify({
         email: email,
         password: password,
@@ -43,22 +48,26 @@ class MainApi {
   getLogoutUser() {
     return fetch(`${this._url}/signout`, {
       method: "GET",
-      credentials: "include",
     }).then((res) => this._handleResponce(res));
   }
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
-      credentials: "include",
-      headers: this._headers,
-    }).then((res) => this._handleResponce(res));
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        "Content-Type": "application/json",
+      },
+    }).then(this._handleResponce);
   }
 
   setUserInfo({ name, email }) {
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
-      credentials: "include",
+      headers: {
+        ...this._headers,
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
       body: JSON.stringify({
         name: name,
         email: email,
@@ -67,17 +76,17 @@ class MainApi {
   }
 
   getToken(token) {
-    return fetch(`${MAIN_API}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    }).then((res) => this._handleResponce(res));
+    }).then(this._handleResponce);
   }
 
   editUser(name, email) {
-    return fetch(`${MAIN_API}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
@@ -102,11 +111,12 @@ class MainApi {
   }
 
   saveMovie(movie) {
+    console.log("Saving movie with data:", movie);
     return fetch(`${this._url}/movies`, {
       method: "POST",
       headers: {
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        "Content-Type": "application/json",
+        ...this._headers,
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: JSON.stringify({
         country: movie.country,
@@ -114,11 +124,10 @@ class MainApi {
         duration: movie.duration,
         year: movie.year,
         description: movie.description,
-        image: `${MOVIES_API}${movie.image.url}`,
-        trailer: movie.trailerLink,
-        thumbnail: `${MOVIES_API}${movie.image.formats.thumbnail.url}`,
-        movieId: `${movie.id}`,
-
+        image: movie.image,
+        trailerLink: movie.trailerLink,
+        thumbnail: movie.thumbnail,
+        movieId: movie.id,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
       }),

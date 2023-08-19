@@ -15,6 +15,13 @@ const useFormValidation = () => {
     setCurrentInputName(name);
   };
 
+  const resetErrors = useCallback(
+    (newErrors = {}) => {
+      setErrors(newErrors);
+    },
+    [setErrors]
+  );
+
   const resetForm = useCallback(
     (newValues = {}, newErrors = {}, newIsValid = false) => {
       setValues(newValues);
@@ -33,6 +40,7 @@ const useFormValidation = () => {
     currentInputName,
     handleChange,
     resetForm,
+    resetErrors
   };
 };
 

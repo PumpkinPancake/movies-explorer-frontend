@@ -10,7 +10,9 @@ export default function AuthForm(props) {
   return (
     <section className="auth-form">
       <div className="auth-form__container">
-        <img className="auth-form__img" src={logo} alt="Логотип сайта" />
+        <Link to="/">
+          <img className="auth-form__img" src={logo} alt="Логотип сайта" />
+        </Link>
         <h1 className="auth-form__title">{props.title}</h1>
         <form
           className={formClass}
@@ -18,16 +20,19 @@ export default function AuthForm(props) {
           onSubmit={props.onSubmit}
         >
           {props.children}
+
+          <div className="auth-form__wrapper">
+            <button type="submit" className={submitClass}>
+              {props.submitButtonText}
+            </button>
+            <p className="auth-form__text">
+              {props.text}
+              <Link to={props.linkPath} className="auth-form__link">
+                {props.linkText}
+              </Link>
+            </p>
+          </div>
         </form>
-        <div className="auth-form__wrapper">
-          <button type="submit" className={submitClass}>
-            {props.submitButtonText}
-          </button>
-          <p className="auth-form__text">
-            {props.text}
-            <Link to={props.linkPath} className="auth-form__link">{props.linkText}</Link>
-          </p>
-        </div>
       </div>
     </section>
   );

@@ -1,15 +1,30 @@
+import React, { useState, useEffect } from "react";
 import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import SearchForm from "../Movies/SearchForm/SearchForm";
+import { moviesData } from "../../utils/content";
+import './SavedMovies.css';
 
-export default function SavedMovies() {
+export default function SavedMovies({ handleSaveMovie }) {
+  const [isShortFilmFilterActive, setIsShortFilmFilterActive] = useState(false);
+  const [savedMoviesData, setSavedMoviesData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+
+
   return (
     <>
-      <Header />
       <section className="saved-movies">
-        <SearchForm />
-        <MoviesCardList />
+        <SearchForm
+          checked={isShortFilmFilterActive}
+        />
+        <MoviesCardList
+          moviesData={moviesData}
+          isShortFilmFilterActive={isShortFilmFilterActive}
+          searchQuery={searchQuery}
+          savedMoviesData={savedMoviesData}
+          handleSaveMovie={handleSaveMovie}
+        />
       </section>
       <Footer />
     </>

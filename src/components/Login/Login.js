@@ -1,62 +1,122 @@
 import React, { useState } from "react";
-import "./Login.css";
 import AuthForm from "../AuthForm/AuthForm";
+import mainApi from "../../utils/MainApi";
+import useFormValidation from "../Hooks/useFormValidation";
+import { errorMessage, inputErrorMessage } from "../../utils/constants";
 
-export default function Login(handleLogin) {
+const validationMessages = {
+  email: inputErrorMessage.email,
+  password: inputErrorMessage.password,
+};
+
+export default function Login({ handleLogin }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
   });
-  const [formErrorMessage, setFormErrorMessage] = useState({});
 
-  const handleChange = (e) => {
+  const [loginError, setLoginError] = useState("");
+  const { errors, resetErrors, handleChange } = useFormValidation();
+
+  const handleChangeValue = (e) => {
     const { name, value } = e.target;
     setFormValue({
       ...formValue,
       [name]: value,
     });
+
+    handleChange(e);
+    if (!value) {
+      resetErrors({ ...errors, [name]: "" });
+    } else {
+      const { validity } = e.target;
+      resetErrors({
+        ...errors,
+        [name]: validity.valid ? "" : validationMessages[name],
+      });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    handleLogin(formValue.email, formValue.password);
+    setIsLoading(true);
+
+    mainApi
+      .getLoginUser(formValue)
+      .then((res) => {
+        localStorage.setItem("jwt", res.token);
+        handleLogin();
+      })
+      .catch((err) => {
+        setLoginError(errorMessage.login);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
     <AuthForm
+      onSubmit={handleSubmit}
       title="Рады видеть!"
       name="login"
-      submitButtonText="Войти"
+      submitButtonText={isLoading ? "Вход..." : "Войти"}
       text="Ещё не зарегистрированы?"
-      linkPath="/register"
+      linkPath="/signup"
       linkText="Регистрация"
     >
       <label className="auth-form__label">
         E-mail
         <input
-          className="auth-form__input auth-form__input_type-email"
+          onChange={handleChangeValue}
+          value={formValue.email}
+          className={`auth-form__input ${
+            errors.email ? "auth-form__input_error" : ""
+          }`}
           type="email"
           name="email"
           required
           id="email-input"
-          value="Shantuk.shakti@gmail.ru"
+          placeholder="example@gmail.ru"
         ></input>
-        <span className="auth-form__input-error email-input-error"></span>
+        {errors.email && (
+          <span
+            className={`auth-form__input-error_text ${
+              errors.email ? "auth-form__input-error_text_active" : ""
+            }`}
+          >
+            {validationMessages.email}
+          </span>
+        )}
       </label>
 
       <label className="auth-form__label">
         Пароль
         <input
-          className="auth-form__input auth-form__input_type-password"
+          onChange={handleChangeValue}
+          value={formValue.password}
+          className={`auth-form__input ${
+            errors.password ? "auth-form__input_error" : ""
+          }`}
           type="password"
           name="password"
           required
           id="password-input"
-          value="123456"
+          placeholder="Введите ваш пароль"
         ></input>
-        <span className="auth-form__input-error password-input-error"></span>
+        {errors.password && (
+          <span
+            className={`auth-form__input-error_text ${
+              errors.password ? "auth-form__input-error_text_active" : ""
+            }`}
+          >
+            {validationMessages.password}
+          </span>
+        )}
       </label>
+      <span className="auth-form__input-error_span">{loginError}</span>
     </AuthForm>
   );
 }

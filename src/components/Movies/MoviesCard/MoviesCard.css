@@ -12,7 +12,7 @@
 }
 
 .card__wrapper {
-  margin: 18px auto;
+  margin: 28px auto;
   display: flex;
   justify-content: space-between;
   width: calc(100% - 2 * 18px);
@@ -58,6 +58,7 @@
   margin: 18px 0;
   transition: all 0.2s ease-out;
   align-self: center;
+  cursor: pointer;
 }
 
 .card__button:hover {
@@ -87,11 +88,15 @@
     max-height: 271px;
   }
 
+  .card__img {
+    max-height: 170px;
+  }
+
   .card__title {
     font-size: 12px;
   }
 
   .card__button {
-    margin: 14px 0;
+    margin: 10px 0;
   }
 }

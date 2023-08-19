@@ -12,7 +12,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-flow: column;
-  margin-top: 66px;
+  margin-top: 60px;
   column-gap: 200px;
 }
 
@@ -101,17 +101,34 @@
 }
 
 @media screen and (max-width: 600px) {
+.about-me {
+  margin-bottom: 70px;
+}
+
   .about-me__container {
     width: calc(100% - 14px * 2);
+    padding: 45px 0 0 0;
   }
   .about-me__info {
     display: flex;
     flex-direction: column-reverse;
+    gap: 30px;
   }
 
   .about-me__image {
-    margin-top: 60px;
     width: 100%;
-    height: 100%;
+    height: 352px;
+  }
+
+  .about-me__name {
+    padding-bottom: 20px;
+  }
+
+  .about-me__prof {
+    padding: 0 0 20px;
+  }
+  
+  .about-me__description {
+    padding: 0 0 55px 0;
   }
 }

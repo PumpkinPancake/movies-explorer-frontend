@@ -116,6 +116,7 @@
 @media screen and (max-width: 768px) {
   .search-form {
     display: flex;
+    margin: 60px 0 60px 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -128,6 +129,11 @@
 }
 
 @media screen and (max-width: 480px) {
+
+  .search-form {
+    margin: 60px 0 45px 0;
+    gap: 40px;
+  }
 
   .search-form__label {
     max-width: 300px;
