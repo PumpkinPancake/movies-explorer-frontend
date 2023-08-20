@@ -19,7 +19,7 @@ export default function AuthForm(props) {
           name={`${props.name}`}
           onSubmit={props.onSubmit}
         >
-          {props.children}
+          <div className="auth-form__content">{props.children}</div>
 
           <div className="auth-form__wrapper">
             <button type="submit" className={submitClass}>

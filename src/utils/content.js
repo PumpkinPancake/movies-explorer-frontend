@@ -1,4 +1,4 @@
-import img from '../components/images/movieImg.png';
+import img from '../images/movieImg.png';
 
 export const moviesData = [
     {

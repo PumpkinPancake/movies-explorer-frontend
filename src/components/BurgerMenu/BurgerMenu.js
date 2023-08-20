@@ -1,6 +1,6 @@
 import "./BurgerMenu.css";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import icon from "../../images/icon_people.svg";
+import icon from '../../images/close-button.svg';
 
 
 export default function BurgerMenu({ onClose, isOpen }) {

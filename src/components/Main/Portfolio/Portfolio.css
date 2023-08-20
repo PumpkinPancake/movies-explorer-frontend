@@ -39,7 +39,7 @@
   position: absolute;
   width: 20px;
   height: 68px;
-  background-image: url("../../images/arrow-link.svg");
+  background-image: url("../../../images/arrow-link.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -105,7 +105,7 @@
     position: absolute;
     width: 10px;
     height: 15px;
-    background-image: url("../../images/arrow-link.svg");
+    background-image: url("../../../images/arrow-link.svg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
