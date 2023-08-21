@@ -29,11 +29,11 @@
 .burger__close-button {
   border: none;
   background-color: white;
-  transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .burger__close-button:hover {
-  opacity: .6;
+  opacity: 0.6;
   cursor: pointer;
 }
 
@@ -57,11 +57,12 @@
   color: black;
   font-size: 18px;
   font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
 }
 
 .burger__link:hover {
-  cursor: pointer;
-  opacity: 60%;
+  opacity: 0.6;
 }
 
 .burger__close-button {
@@ -86,16 +87,20 @@
   border-radius: 50px;
   background-color: white;
   margin: 0 0 90px 0;
-  transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .burger__button-profile:hover {
-  opacity: .6;
+  opacity: 0.6;
   cursor: pointer;
 }
 
+.burger__img-profile {
+  padding: 0 7px 0 0;
+}
+
 @media screen and (max-width: 480px) {
-    .burger__menu {
-        width: 100%;
-    }
+  .burger__menu {
+    width: 100%;
+  }
 }

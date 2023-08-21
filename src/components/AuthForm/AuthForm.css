@@ -29,7 +29,7 @@
 
 .auth-form__form {
   display: flex;
-  margin: 0 0 170px 0;
+  margin: 0 0 100px 0;
   height: 100vh;
   flex-direction: column;
   justify-content: space-between;
@@ -125,23 +125,9 @@
   color: #ee3465;
 }
 
-@media screen and (max-width: 768px) {
-  .auth-form__img {
-    margin: 232px 0 35px 0;
-  }
-
-  .auth-form__wrapper {
-    margin: 150px 0 200px 0;
-  }
-}
-
 @media screen and (max-width: 480px) {
   .auth-form__container {
     text-align: center;
-  }
-
-  .auth-form__img {
-    margin: 56px 0 40px 0;
   }
 
   .auth-form__title {
@@ -151,9 +137,5 @@
   .auth-form__form {
     text-align: start;
     max-width: 260px;
-  }
-
-  .auth-form__wrapper {
-    margin: 315px 0 200px 0;
   }
 }

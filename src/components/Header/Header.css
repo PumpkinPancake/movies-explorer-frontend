@@ -71,6 +71,11 @@
   font-size: 13px;
   text-decoration: none;
   color: black;
+  transition: all 0.2s ease-out;
+}
+
+.header__link_active:hover {
+  opacity: .6;
 }
 
 .header__button-profile {
