@@ -4,7 +4,7 @@ export default function Portfolio() {
   return (
     <section id="portfolio" className="portfolio">
       <div className="portfolio__container">
-        <h3 className="portfolio__title">Портфолио</h3>
+        <h2 className="portfolio__title">Портфолио</h2>
         <ul className="portfolio__list">
           <li>
             <a

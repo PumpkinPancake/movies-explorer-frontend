@@ -9,7 +9,7 @@
   color: #a0a0a0;
   font-size: 13px;
   text-align: center;
-  padding: 160px 0 15px;
+  padding: 165px 0 20px;
 }
 
 .footer__line {
@@ -55,7 +55,7 @@
   }
 
   .footer__text {
-    padding: 155px 0 20px;
+    padding: 162px 0 20px;
   }
 }
 
@@ -82,6 +82,6 @@
   }
 
   .footer__text {
-    padding: 130px 0 20px 0;
+    padding: 156px 0 20px 0;
   }
 }

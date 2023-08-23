@@ -1,6 +1,6 @@
 .movies-card {
   width: 100%;
-  margin: 75px 0 0 20px;
+  margin: 75px 0 0 0;
 }
 
 .movies-card__list {
@@ -10,12 +10,15 @@
   grid-template-columns: repeat(3, minmax(320px, 360px));
   grid-template-rows: minmax(319px);
   justify-content: center;
+  align-items: center;
   column-gap: 28px;
   row-gap: 32px;
   margin: 0 0 65px 0;
 }
 
 .movies-card__item {
+  display: flex;
+  justify-content: center;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -42,7 +45,7 @@
   .movies-card__list {
     grid-template-columns: repeat(2, minmax(300px, 360px));
     column-gap: 24px;
-    row-gap: 35px;
+    row-gap: 37px;
     margin: 0 0 85px 0;
   }
 }

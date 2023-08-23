@@ -67,13 +67,13 @@ export default function Login({ handleLogin }) {
       linkPath="/signup"
       linkText="Регистрация"
     >
-      <label className="auth-form__label">
+      <label className="auth-form-label">
         E-mail
         <input
           onChange={handleChangeValue}
           value={formValue.email}
-          className={`auth-form__input ${
-            errors.email ? "auth-form__input_error" : ""
+          className={`auth-form-input ${
+            errors.email ? "auth-form-input_error" : ""
           }`}
           type="email"
           name="email"
@@ -83,8 +83,8 @@ export default function Login({ handleLogin }) {
         ></input>
         {errors.email && (
           <span
-            className={`auth-form__input-error_text ${
-              errors.email ? "auth-form__input-error_text_active" : ""
+            className={`auth-form-input-error-text ${
+              errors.email ? "auth-form-input-error-text_active" : ""
             }`}
           >
             {validationMessages.email}
@@ -92,13 +92,13 @@ export default function Login({ handleLogin }) {
         )}
       </label>
 
-      <label className="auth-form__label">
+      <label className="auth-form-label auth-form-label_login">
         Пароль
         <input
           onChange={handleChangeValue}
           value={formValue.password}
-          className={`auth-form__input ${
-            errors.password ? "auth-form__input_error" : ""
+          className={`auth-form-input ${
+            errors.password ? "auth-form-input_error" : ""
           }`}
           type="password"
           name="password"
@@ -108,15 +108,15 @@ export default function Login({ handleLogin }) {
         ></input>
         {errors.password && (
           <span
-            className={`auth-form__input-error_text ${
-              errors.password ? "auth-form__input-error_text_active" : ""
+            className={`auth-form-input-error-text ${
+              errors.password ? "auth-form-input-error-text_active" : ""
             }`}
           >
             {validationMessages.password}
           </span>
         )}
       </label>
-      <span className="auth-form__input-error_span">{loginError}</span>
+      <span className="auth-form-input-error-span">{loginError}</span>
     </AuthForm>
   );
 }

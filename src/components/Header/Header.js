@@ -67,7 +67,7 @@ export default function Header({ loggedIn }) {
           >
             <img
               src={menuImg}
-              className="burger-menu__img"
+              className="burger-menu-img"
               alt="Иконка меню"
             ></img>
           </button>
@@ -105,7 +105,7 @@ export default function Header({ loggedIn }) {
           >
             <img
               src={menuImg}
-              className="burger-menu__img"
+              className="burger-menu-img"
               alt="Иконка меню"
             ></img>
           </button>

@@ -1,4 +1,4 @@
-.burger__overlay {
+.burger-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +11,7 @@
   align-items: center;
 }
 
-.burger__menu {
+.burger-menu {
   position: absolute;
   background-color: white;
   z-index: 10000;
@@ -26,18 +26,18 @@
   justify-content: space-between;
 }
 
-.burger__close-button {
+.burger-close-button {
   border: none;
   background-color: white;
   transition: all 0.2s ease-out;
 }
 
-.burger__close-button:hover {
+.burger-close-button:hover {
   opacity: 0.6;
   cursor: pointer;
 }
 
-.burger__list {
+.burger-list {
   margin: 160px 0 0 0;
   padding: 0;
   list-style-type: none;
@@ -47,12 +47,12 @@
   gap: 30px;
 }
 
-.burger__link_active {
+.burger-link_active {
   border-bottom: 2px solid black;
   padding-bottom: 7px;
 }
 
-.burger__link {
+.burger-link {
   text-decoration: none;
   color: black;
   font-size: 18px;
@@ -61,11 +61,11 @@
   transition: all 0.2s ease-out;
 }
 
-.burger__link:hover {
+.burger-link:hover {
   opacity: 0.6;
 }
 
-.burger__close-button {
+.burger-close-button {
   background-position: center;
   border: 0;
   position: absolute;
@@ -78,7 +78,7 @@
   height: 22px;
 }
 
-.burger__button-profile {
+.burger-button-profile {
   font-size: 14px;
   line-height: 16px;
   font-weight: 600;
@@ -90,17 +90,17 @@
   transition: all 0.2s ease-out;
 }
 
-.burger__button-profile:hover {
+.burger-button-profile:hover {
   opacity: 0.6;
   cursor: pointer;
 }
 
-.burger__img-profile {
+.burger-img-profile {
   padding: 0 7px 0 0;
 }
 
 @media screen and (max-width: 480px) {
-  .burger__menu {
+  .burger-menu {
     width: 100%;
   }
 }
