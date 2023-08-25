@@ -1,0 +1,145 @@
+.search-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 80px 0 83px 0;
+  padding: 0;
+  width: 100%;
+}
+
+.search-form__line {
+  width: 100%;
+  border-bottom: 1px solid #aaa;
+  margin: 0 0 10px 0;
+}
+
+.search-form__label {
+  display: flex;
+  border: 1.5px solid rgba(170, 170, 170, 0.2);
+  border-radius: 50px;
+  margin: 0 40px 0 0;
+  width: 100%;
+  max-width: 932px;
+  justify-content: flex-end;
+  padding: 7px 7px;
+}
+
+.search-form__label:focus-within {
+  border: 1.5px solid rgba(170, 170, 170, 0.8);
+}
+
+.search-form__label-short {
+  border: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+  width: min-content;
+}
+
+.search-form__wrapper {
+  border-radius: 20px;
+  box-shadow: 0 4px 4px 0 rgba(32, 32, 47, .3);
+  width: 36px;
+  height: 20px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.search-form__short-checkbox {
+  margin: 0;
+  height: 16px;
+  width: 16px;
+  z-index: 1;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.search-form__label-short-text {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+  color: #000;
+  pointer-events: none;
+  margin: 0 14px 0 0;
+}
+
+.search-form__short-checkbox:checked + .search-form__checkbox-indicator {
+  background: #2be080;
+}
+
+.search-form__checkbox-indicator {
+  position: absolute;
+  top: 2px;
+  left: 125px;
+  width: 16px;
+  height: 16px;
+  background: #2be080;
+  border-radius: 50%;
+  transition: left 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.search-form__checkbox-indicator.checked {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+}
+
+.search-form__input {
+  border: none;
+  width: 100%;
+  padding: 0 0 0 22px;
+}
+
+.search-form__input::placeholder {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  color: #a0a0a0;
+  margin: 0;
+}
+
+.search-form__input:focus {
+  outline: none;
+}
+
+.search-form__button {
+  border: none;
+  background-color: #2be080;
+  border-radius: 100%;
+  padding: 6px 6px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+
+.search-form__button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 768px) {
+  .search-form {
+    display: flex;
+    margin: 60px 0 60px 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+  }
+
+  .search-form__label {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+
+  .search-form {
+    margin: 60px 0 45px 0;
+    gap: 40px;
+  }
+
+  .search-form__label {
+    max-width: 300px;
+  }
+}

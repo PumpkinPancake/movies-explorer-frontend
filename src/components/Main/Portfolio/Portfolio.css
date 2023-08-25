@@ -1,0 +1,114 @@
+.portfolio__container {
+  margin: 0 auto;
+  width: calc(100% - 2 * 70px);
+}
+
+.portfolio__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.portfolio__title {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  color: #a0a0a0;
+  margin-bottom: 40px;
+  line-height: 20px;
+}
+
+.portfolio__link {
+  letter-spacing: -0.06em;
+  display: block;
+  position: relative;
+  text-decoration: none;
+  font-size: 33px;
+  line-height: 50px;
+  color: black;
+  padding: 9px 0 ;
+  width: 100%;
+  cursor: pointer;
+  transition: all .2s ease-out;
+}
+
+.portfolio__link::before {
+  content: "";
+  top: 5px;
+  right: 5px;
+  position: absolute;
+  width: 20px;
+  height: 68px;
+  background-image: url("../../../images/arrow-link.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.portfolio__link::after {
+  content: "";
+  left: 0;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: white;
+}
+
+.portfolio__link:hover {
+  opacity: .6;
+}
+
+.portfolio__line {
+  border-bottom: 1px solid #e8e8e8;
+  margin: 0 0 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio__container {
+    width: calc(100% - 2 * 50px);
+  }
+
+  .portfolio__title {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  .portfolio__link {
+    font-size: 28px;
+    line-height: 50px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .portfolio__container {
+    width: calc(100% - 2 * 14px);
+  }
+
+  .portfolio__title {
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0 0 40px 0 ;
+    font-weight: 400;
+  }
+
+  .portfolio__link {
+    font-size: 18px;
+    line-height: 28px;
+    padding: 7px 0 10px;
+  }
+
+  .portfolio__link::before {
+    content: "";
+    top: 6px;
+    right: 0;
+    position: absolute;
+    width: 10px;
+    height: 15px;
+    background-image: url("../../../images/arrow-link.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+}
