@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import delBtn from "../../images/del_button.svg";
 import { useLocation } from "react-router-dom";
 import iconChesk from "../../images/icon-chesk.svg";
@@ -26,8 +25,7 @@ export default function MoviesCard(props) {
     setIsSave(newIsSave);
 
     if (props.onMovieSave) {
-      console.log("Calling onMovieSave with:", props, newIsSave);
-      props.onMovieSave(props, newIsSave);
+      props.onMovieSave(props.movieId, newIsSave);
     }
   }
 

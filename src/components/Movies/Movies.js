@@ -27,9 +27,7 @@ export default function Movies() {
       .catch((error) => {
         console.error("Ошибка при получении данных:", error);
       });
-
-    const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
-    setSavedMoviesData(savedMovies);
+    setSavedMoviesData(JSON.parse(localStorage.getItem("savedMovies")) || []);
   }, []);
 
   const handleSearch = (query) => {
@@ -48,14 +46,18 @@ export default function Movies() {
         (savedMovie) => savedMovie.movieId === movie.movieId
       );
 
-      mainApi.deleteMovie(movieToDelete._id)
+      mainApi
+        .deleteMovie(movieToDelete._id)
         .then(() => {
           console.log("Movie deleted:", movieToDelete._id);
           const updatedSavedMovies = savedMoviesData.filter(
             (savedMovie) => savedMovie._id !== movieToDelete._id
           );
           setSavedMoviesData(updatedSavedMovies);
-          localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+          localStorage.setItem(
+            "savedMovies",
+            JSON.stringify(updatedSavedMovies)
+          );
         })
         .catch((error) => {
           console.error("Error while deleting movie:", error);
@@ -68,7 +70,10 @@ export default function Movies() {
           console.log("Movie saved:", savedMovie);
           const updatedSavedMovies = [...savedMoviesData, savedMovie];
           setSavedMoviesData(updatedSavedMovies);
-          localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+          localStorage.setItem(
+            "savedMovies",
+            JSON.stringify(updatedSavedMovies)
+          );
         })
         .catch((error) => {
           console.error("Error while saving movie:", error);
@@ -89,7 +94,6 @@ export default function Movies() {
             moviesData={moviesData}
             isShortFilmFilterActive={isShortFilmFilterActive}
             searchQuery={searchQuery}
-            savedMoviesData={savedMoviesData}
             handleSaveMovie={handleSaveMovie}
           />
         </section>

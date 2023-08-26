@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useLocation } from "react-router-dom";
-import moviesApi from "../../../utils/MoviesApi";
 import mainApi from "../../../utils/MainApi";
 
 export default function MoviesCardList({
   moviesData,
   isShortFilmFilterActive,
   searchQuery,
+  handleSaveMovie,
 }) {
   const [visibleMoviesCount, setVisibleMoviesCount] = useState(0);
   const [savedMoviesData, setSavedMoviesData] = useState([]);
@@ -19,24 +19,6 @@ export default function MoviesCardList({
     const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
     setSavedMoviesData(savedMovies);
   }, []);
-
-  const handleSaveMovie = async (movie, isSaved) => {
-    console.log("Вызов команды сохранить:", movie);
-    try {
-      await mainApi.saveMovie(movie);
-
-      if (isSaved) {
-        const updatedSavedMovies = savedMoviesData.filter(
-          (savedMovie) => savedMovie._id !== movie._id
-        );
-        setSavedMoviesData(updatedSavedMovies);
-      } else {
-        setSavedMoviesData((prevSavedMovies) => [...prevSavedMovies, movie]);
-      }
-    } catch (error) {
-      console.error("Error while saving movie:", error);
-    }
-  };
 
   const filteredMovies = isShortFilmFilterActive
     ? moviesData.filter((movie) => movie.duration <= 40)
@@ -93,15 +75,15 @@ export default function MoviesCardList({
                   ? movie.imageUrl
                   : `https://api.nomoreparties.co${movie.image.url}`
               }
-              title={movie.nameRU}
+              title={movie.nameRU || movie.nameEN}
               duration={movie.duration}
               trailerLink={movie.trailerLink}
               onMovieSave={handleSaveMovie}
               isSaved={savedMoviesData.some(
                 (savedMovie) => savedMovie._id === movie._id
               )}
-              movieId={movie.id}
-              savedMovie={savedMoviesData}
+              movieId={inSaveMovies ? movie._id : movie.id}
+              country={movie.country}
             />
           </li>
         ))}

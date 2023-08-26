@@ -10,9 +10,6 @@ export default function SavedMovies({ handleSaveMovie }) {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
-    setSavedMoviesData(savedMovies);
-
     mainApi
       .getUserMovies()
       .then((data) => {
