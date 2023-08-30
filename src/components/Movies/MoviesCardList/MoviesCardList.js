@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
+import { useLocation } from "react-router";
 
 export default function MoviesCardList({
   moviesData,
@@ -9,6 +10,7 @@ export default function MoviesCardList({
   handleSaveMovie,
 }) {
   const [visibleMoviesCount, setVisibleMoviesCount] = useState(0);
+  const [movieToRender, setMovieToRender] = useState(8);
 
   const filteredMovies = isShortFilmFilterActive
     ? moviesData.filter((movie) => movie.duration <= 40)
@@ -63,8 +65,8 @@ export default function MoviesCardList({
               isSaved={savedMovie.some(
                 (savedMovie) => savedMovie.movieId === movie.id
               )}
-              // onSave={() => onSave(movie)}
-              // onDelete={() => onDelete(movie._id)}
+              onSave={() => onSave(movie)}
+              onDelete={() => onDelete(movie._id)}
               imageUrl={`https://api.nomoreparties.co${movie.image.url}`}
               title={movie.nameRU}
               duration={movie.duration}
