@@ -4,16 +4,16 @@ import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import SearchForm from "../Movies/SearchForm/SearchForm";
 import mainApi from "../../utils/MainApi";
 
-export default function SavedMovies({ handleSaveMovie }) {
+export default function SavedMovies() {
   const [isShortFilmFilterActive, setIsShortFilmFilterActive] = useState(false);
   const [savedMoviesData, setSavedMoviesData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  
 
   useEffect(() => {
     mainApi
       .getUserMovies()
       .then((data) => {
-        console.log("Saved Movies data:", data);
         setSavedMoviesData(data);
       })
       .catch((error) => {
@@ -25,19 +25,34 @@ export default function SavedMovies({ handleSaveMovie }) {
     setIsShortFilmFilterActive(!isShortFilmFilterActive);
   };
 
+  const handleDeleteMovie = (movieId) => {
+    mainApi
+      .deleteMovie(movieId)
+      .then(() => {
+        const updatedSavedMovies = savedMoviesData.filter(
+          (savedMovie) => savedMovie.movieId !== movieId
+        );
+        setSavedMoviesData(updatedSavedMovies);
+        localStorage.setItem("savedMovies", JSON.stringify(updatedSavedMovies));
+      })
+      .catch((error) => {
+        console.error("Error while deleting movie:", error);
+      });
+  };
+
   return (
     <>
       <section className="saved-movies">
         <SearchForm
-          checked={isShortFilmFilterActive}
+          isChecked={isShortFilmFilterActive}
           onChange={handleShortFilmFilterChange}
         />
         <MoviesCardList
           moviesData={savedMoviesData}
           isShortFilmFilterActive={isShortFilmFilterActive}
           searchQuery={searchQuery}
+          handleSaveMovie={handleDeleteMovie}
           savedMoviesData={savedMoviesData}
-          handleSaveMovie={handleSaveMovie}
         />
       </section>
       <Footer />

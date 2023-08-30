@@ -1,58 +1,40 @@
 import React, { useState } from "react";
 import delBtn from "../../images/del_button.svg";
 import { useLocation } from "react-router-dom";
-import iconChesk from "../../images/icon-chesk.svg";
+import iconCheck from "../../images/icon-chesk.svg";
 
 import "./MoviesCard.css";
 
 export default function MoviesCard(props) {
-  const [isLiked, setIsLiked] = useState(false);
-
   const location = useLocation();
-
-  // useEffect(() => {
-  //   setIsLiked(props.isSaved);
-  // }, [props.isSaved]);
-
-  useEffect(() => {
-    if (props.savedMovie) {
-      const result = props.savedMovie.some(
-        (item) => item.movieId === props.movieId
-      );
-      setIsLiked(result);
-    }
-  }, [props.savedMovie, props.movieId]);
+  const [isSaved, setIsSaved] = useState(props.isSaved);
 
   const buttonClass =
     location.pathname === "/movies"
-      ? isLiked
+      ? isSaved
         ? "card__button_saved"
         : ""
       : location.pathname === "/saved-movies"
-      ? isLiked
-        ? "card__button_del"
-        : ""
+      ? "card__button_del"
       : "";
 
-  function handleClickSave() {
-    const newIsSave = !isSave;
-    setIsSave(newIsSave);
-
-    if (props.onMovieSave) {
-      props.onMovieSave(props.movieId, newIsSave);
+      function handleClickSave() {
+        if (location.pathname === "/movies") {
+            const newIsSaved = !isSaved;
+            setIsSaved(newIsSaved);
+            if (props.onMovieSave) {
+                props.onMovieSave(props.movieId, newIsSaved);
+            }
+        } else if (location.pathname === "/saved-movies") {
+          console.log("Нажата кнопка «Удалить» для фильма с идентификатором:", props.movieId);
+            if (props.onMovieSave) {
+                props.onMovieSave(props.movieId);
+            }
+        }
     }
-  }
 
   const openTrailerLink = () => {
     window.open(`${props.trailerLink}`);
-  };
-
-  const handleLikeButtonClick = () => {
-    if (location.pathname === "/movies") {
-      props.onSave();
-    } else if (location.pathname === "/saved-movies") {
-      props.onDelete();
-    }
   };
 
   const displayDuration = (duration) => {
@@ -82,18 +64,19 @@ export default function MoviesCard(props) {
       </a>
       <button
         className={`card__button ${buttonClass}`}
-        onClick={handleLikeButtonClick}
+        onClick={handleClickSave}
+        disabled={isSaved && location.pathname === "/movies"}
       >
         {location.pathname === "/movies" ? (
-          isLiked ? (
-            <img src={iconChesk} alt="Сохранить" className="card__icon-chesk" />
+          isSaved ? (
+            <img src={iconCheck} alt="Сохранено" className="card__icon-check" />
           ) : (
             "Сохранить"
           )
         ) : (
           ""
         )}
-        {location.pathname === "/saved-movies" && isSave ? (
+        {location.pathname === "/saved-movies" ? (
           <img src={delBtn} alt="Удалить" className="card__icon-del" />
         ) : (
           ""

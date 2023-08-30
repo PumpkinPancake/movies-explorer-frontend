@@ -1,35 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 
 export default function MoviesCardList({
   moviesData,
   isShortFilmFilterActive,
   searchQuery,
   handleSaveMovie,
+  savedMoviesData,
 }) {
   const [visibleMoviesCount, setVisibleMoviesCount] = useState(0);
-  const [movieToRender, setMovieToRender] = useState(8);
-
-  const filteredMovies = isShortFilmFilterActive
-    ? moviesData.filter((movie) => movie.duration <= 40)
-    : moviesData;
-
-  const searchedAndFilteredMovies = searchQuery
-    ? filteredMovies.filter((movie) =>
-        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : filteredMovies;
-
-  const displayedMovies =
-    location.pathname === "/saved-movies"
-      ? searchedAndFilteredMovies.filter((movie) =>
-          savedMoviesData.includes(movie)
-        )
-      : searchedAndFilteredMovies;
-
-  const remainingMovies = filteredMovies.length - visibleMoviesCount;
+  const location = useLocation();
+  const inSavedMovies = location.pathname === "/saved-movies";
 
   useEffect(() => {
     const handleResize = () => {
@@ -46,40 +29,54 @@ export default function MoviesCardList({
     };
 
     handleResize();
-
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [savedMoviesData]);
+
+  const filteredMovies = isShortFilmFilterActive
+    ? moviesData.filter((movie) => movie.duration <= 40)
+    : moviesData;
+
+  const displayedMovies = searchQuery
+    ? filteredMovies.filter((movie) =>
+        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : filteredMovies;
+
+  const remainingMovies = displayedMovies.length - visibleMoviesCount;
 
   return (
     <section className="movies-card">
       <ul className="movies-card__list">
-        {displayedMovies.slice(0, visibleMoviesCount).map((movie) => (
-          <li
-            className="movies-card__item"
-            key={inSaveMovies ? movie._id : movie.id}
-          >
-            <MoviesCard
-              isSaved={savedMovie.some(
-                (savedMovie) => savedMovie.movieId === movie.id
-              )}
-              onSave={() => onSave(movie)}
-              onDelete={() => onDelete(movie._id)}
-              imageUrl={`https://api.nomoreparties.co${movie.image.url}`}
-              title={movie.nameRU}
-              duration={movie.duration}
-              trailerLink={movie.trailerLink}
-              onMovieSave={handleSaveMovie}
-              isSaved={savedMoviesData.some(
-                (savedMovie) => savedMovie._id === movie._id
-              )}
-              movieId={inSaveMovies ? movie._id : movie.id}
-              country={movie.country}
-            />
-          </li>
-        ))}
+        {displayedMovies.slice(0, visibleMoviesCount).map((movie) => {
+          console.log("Сейвед муви дата:", savedMoviesData);
+          return (
+            <li
+              className="movies-card__item"
+              key={inSavedMovies ? movie._id : movie.id}
+            >
+              <MoviesCard
+                imageUrl={
+                  inSavedMovies
+                    ? movie.image
+                    : `https://api.nomoreparties.co${movie.image.url}`
+                }
+                title={movie.nameRU || movie.nameEN}
+                duration={movie.duration}
+                trailerLink={movie.trailerLink}
+                onMovieSave={handleSaveMovie}
+                isSaved={savedMoviesData.some(
+                  (savedMovie) => savedMovie.movieId === movie.id
+                )}
+                savedMoviesData={savedMoviesData}
+                movieId={movie.id || movie._id}
+                country={movie.country}
+              />
+            </li>
+          );
+        })}
       </ul>
       {remainingMovies > 0 && (
         <button
