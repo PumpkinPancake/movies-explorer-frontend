@@ -35,60 +35,17 @@ export default function Movies() {
     localStorage.setItem("searchQuery", query);
   };
 
-<<<<<<< Updated upstream
-  const handleSaveMovie = (movie) => {
-    const isSaved = savedMoviesData.some(
-      (savedMovie) => savedMovie.movieId === movie.movieId
-    );
-=======
+  // ПОЛУЧИТЬ СОХРАНЕННЫЕ ФИЛЬМЫ
   const [savedMovie, setSavedMovie] = useState(() => {
     const data = JSON.parse(localStorage.getItem("savedMovie")) || [];
     return data;
   });
->>>>>>> Stashed changes
 
-    if (isSaved) {
-      // Если фильм уже сохранен, удаляем его
-      const movieToDelete = savedMoviesData.find(
-        (savedMovie) => savedMovie.movieId === movie.movieId
-      );
+  useEffect(() => {
+    getMovies();
+    getUserMovie();
+  }, []);
 
-<<<<<<< Updated upstream
-      mainApi
-        .deleteMovie(movieToDelete._id)
-        .then(() => {
-          console.log("Movie deleted:", movieToDelete._id);
-          const updatedSavedMovies = savedMoviesData.filter(
-            (savedMovie) => savedMovie._id !== movieToDelete._id
-          );
-          setSavedMoviesData(updatedSavedMovies);
-          localStorage.setItem(
-            "savedMovies",
-            JSON.stringify(updatedSavedMovies)
-          );
-        })
-        .catch((error) => {
-          console.error("Error while deleting movie:", error);
-        });
-    } else {
-      // Если фильм не сохранен, сохраняем его
-      mainApi
-        .saveMovie(movie)
-        .then((savedMovie) => {
-          console.log("Movie saved:", savedMovie);
-          const updatedSavedMovies = [...savedMoviesData, savedMovie];
-          setSavedMoviesData(updatedSavedMovies);
-          localStorage.setItem(
-            "savedMovies",
-            JSON.stringify(updatedSavedMovies)
-          );
-        })
-        .catch((error) => {
-          console.error("Error while saving movie:", error);
-        });
-    }
-  };
-=======
   function getMovies() {
     moviesApi
       .getMovies()
@@ -105,30 +62,7 @@ export default function Movies() {
       .catch((err) => console.log("getUserMovies Catch ERROR ->", err));
   }
 
-  function handleSaveMovie(movie) {
-    return mainApi
-      .saveMovie(movie)
-      .then((res) => {
-        setSavedMovie((prev) => [...prev, res]);
-      })
-      .catch((err) => console.log(err));
-  }
-
-  useEffect(() => {
-    localStorage.setItem("savedMovie", JSON.stringify(savedMovie));
-  }, [savedMovie]);
-
-  function handleDeleteMovie(movie) {
-    const movieId = savedMovie.find((item) => movie.id === item.movieId)._id;
-    return mainApi
-      .deleteMovie(movieId)
-      .then(() => {
-        const newArr = savedMovie.filter((item) => item._id !== movieId);
-        setSavedMovie(newArr);
-      })
-      .catch((err) => console.log("handleMovieDelete ERROR", err));
-  }
->>>>>>> Stashed changes
+  
 
   return (
     <>
@@ -152,4 +86,4 @@ export default function Movies() {
       <Footer />
     </>
   );
-}
+  }

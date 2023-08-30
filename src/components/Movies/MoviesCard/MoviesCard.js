@@ -6,36 +6,16 @@ import iconChesk from "../../images/icon-chesk.svg";
 import "./MoviesCard.css";
 
 export default function MoviesCard(props) {
-  const [isLiked, setIsLiked] = useState(false);
-<<<<<<< Updated upstream
-  const [isSave, setIsSave] = useState(props.isSave);
-
   const location = useLocation();
-=======
-
-  const location = useLocation();
-
-  // useEffect(() => {
-  //   setIsLiked(props.isSaved);
-  // }, [props.isSaved]);
-
-  useEffect(() => {
-    if (props.savedMovie) {
-      const result = props.savedMovie.some(
-        (item) => item.movieId === props.movieId
-      );
-      setIsLiked(result);
-    }
-  }, [props.savedMovie, props.movieId]);
->>>>>>> Stashed changes
+  const [isSave, setIsSave] = useState(props.isSaved);
 
   const buttonClass =
     location.pathname === "/movies"
-      ? isLiked
+      ? isSave
         ? "card__button_saved"
         : ""
       : location.pathname === "/saved-movies"
-      ? isLiked
+      ? isSave
         ? "card__button_del"
         : ""
       : "";
@@ -51,14 +31,6 @@ export default function MoviesCard(props) {
 
   const openTrailerLink = () => {
     window.open(`${props.trailerLink}`);
-  };
-
-  const handleLikeButtonClick = () => {
-    if (location.pathname === "/movies") {
-      props.onSave();
-    } else if (location.pathname === "/saved-movies") {
-      props.onDelete();
-    }
   };
 
   const displayDuration = (duration) => {
@@ -86,14 +58,7 @@ export default function MoviesCard(props) {
       >
         <img className="card__img" src={props.imageUrl} alt={props.title}></img>
       </a>
-      <button
-        className={`card__button ${buttonClass}`}
-<<<<<<< Updated upstream
-        onClick={handleClickSave}
-=======
-        onClick={handleLikeButtonClick}
->>>>>>> Stashed changes
-      >
+      <button className={`card__button ${buttonClass}`} onClick={props.onDelete}>
         {location.pathname === "/movies" ? (
           isLiked ? (
             <img src={iconChesk} alt="Сохранить" className="card__icon-chesk" />
