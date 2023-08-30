@@ -6,16 +6,36 @@ import iconChesk from "../../images/icon-chesk.svg";
 import "./MoviesCard.css";
 
 export default function MoviesCard(props) {
+  const [isLiked, setIsLiked] = useState(false);
+<<<<<<< Updated upstream
+  const [isSave, setIsSave] = useState(props.isSave);
+
   const location = useLocation();
-  const [isSave, setIsSave] = useState(props.isSaved);
+=======
+
+  const location = useLocation();
+
+  // useEffect(() => {
+  //   setIsLiked(props.isSaved);
+  // }, [props.isSaved]);
+
+  useEffect(() => {
+    if (props.savedMovie) {
+      const result = props.savedMovie.some(
+        (item) => item.movieId === props.movieId
+      );
+      setIsLiked(result);
+    }
+  }, [props.savedMovie, props.movieId]);
+>>>>>>> Stashed changes
 
   const buttonClass =
     location.pathname === "/movies"
-      ? isSave
+      ? isLiked
         ? "card__button_saved"
         : ""
       : location.pathname === "/saved-movies"
-      ? isSave
+      ? isLiked
         ? "card__button_del"
         : ""
       : "";
@@ -31,6 +51,14 @@ export default function MoviesCard(props) {
 
   const openTrailerLink = () => {
     window.open(`${props.trailerLink}`);
+  };
+
+  const handleLikeButtonClick = () => {
+    if (location.pathname === "/movies") {
+      props.onSave();
+    } else if (location.pathname === "/saved-movies") {
+      props.onDelete();
+    }
   };
 
   const displayDuration = (duration) => {
@@ -60,10 +88,14 @@ export default function MoviesCard(props) {
       </a>
       <button
         className={`card__button ${buttonClass}`}
+<<<<<<< Updated upstream
         onClick={handleClickSave}
+=======
+        onClick={handleLikeButtonClick}
+>>>>>>> Stashed changes
       >
         {location.pathname === "/movies" ? (
-          isSave ? (
+          isLiked ? (
             <img src={iconChesk} alt="Сохранить" className="card__icon-chesk" />
           ) : (
             "Сохранить"
