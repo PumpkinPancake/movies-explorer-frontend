@@ -46,11 +46,11 @@
   margin-top: 40px;
   text-decoration: none;
   color: black;
-  transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .about-me__resourses:hover {
-  opacity: .6;
+  opacity: 0.6;
   cursor: pointer;
 }
 
@@ -108,13 +108,13 @@
 }
 
 @media screen and (max-width: 600px) {
-.about-me {
-  margin-bottom: 70px;
-}
+  .about-me {
+    margin-bottom: 70px;
+  }
 
-.about-me {
-  margin-bottom: 70px;
-}
+  .about-me {
+    margin-bottom: 70px;
+  }
 
   .about-me__container {
     width: calc(100% - 14px * 2);
@@ -140,7 +140,7 @@
   .about-me__prof {
     padding: 0 0 20px;
   }
-  
+
   .about-me__description {
     padding: 0 0 55px 0;
   }

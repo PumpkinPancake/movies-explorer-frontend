@@ -1,5 +1,4 @@
 .burger-overlay {
-.burger-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +11,6 @@
   align-items: center;
 }
 
-.burger-menu {
 .burger-menu {
   position: absolute;
   background-color: white;
@@ -29,19 +27,16 @@
 }
 
 .burger-close-button {
-.burger-close-button {
   border: none;
   background-color: white;
-  transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
 .burger__close-button:hover {
-  opacity: .6;
+  opacity: 0.6;
   cursor: pointer;
 }
 
-.burger-list {
 .burger-list {
   margin: 160px 0 0 0;
   padding: 0;
@@ -53,12 +48,10 @@
 }
 
 .burger-link_active {
-.burger-link_active {
   border-bottom: 2px solid black;
   padding-bottom: 7px;
 }
 
-.burger-link {
 .burger-link {
   text-decoration: none;
   color: black;
@@ -69,7 +62,6 @@
 }
 
 .burger-close-button {
-.burger-close-button {
   background-position: center;
   border: 0;
   position: absolute;
@@ -77,13 +69,11 @@
   right: 22.44px;
   padding: 0;
   background-image: url("../../images/close-button.svg");
-  background-image: url("../../images/close-button.svg");
   background-repeat: no-repeat;
   width: 22px;
   height: 22px;
 }
 
-.burger-button-profile {
 .burger-button-profile {
   font-size: 14px;
   line-height: 16px;
@@ -94,16 +84,15 @@
   background-color: white;
   margin: 0 0 90px 0;
   transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
 }
 
 .burger__button-profile:hover {
-  opacity: .6;
+  opacity: 0.6;
   cursor: pointer;
 }
 
 @media screen and (max-width: 480px) {
-    .burger__menu {
-        width: 100%;
-    }
+  .burger__menu {
+    width: 100%;
+  }
 }

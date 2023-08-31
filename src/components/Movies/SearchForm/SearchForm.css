@@ -39,7 +39,7 @@
 
 .search-form__wrapper {
   border-radius: 20px;
-  box-shadow: 0 4px 4px 0 rgba(32, 32, 47, .3);
+  box-shadow: 0 4px 4px 0 rgba(32, 32, 47, 0.3);
   width: 36px;
   height: 20px;
   background-color: #fff;
@@ -133,7 +133,6 @@
 }
 
 @media screen and (max-width: 480px) {
-
   .search-form {
     margin: 60px 0 45px 0;
     gap: 40px;

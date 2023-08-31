@@ -13,7 +13,7 @@
 }
 
 .header__logo:hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 
 .header__buttons {
@@ -62,7 +62,7 @@
 }
 
 .header__link:hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 
 .header__link_active {
@@ -75,7 +75,7 @@
 }
 
 .header__link_active:hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 
 .header__button-profile {
@@ -131,7 +131,6 @@
 @media screen and (max-width: 480px) {
   .header {
     width: calc(100% - 2 * 14px);
-    
   }
 
   .header__no-auth {
@@ -144,4 +143,3 @@
     line-height: 16px;
   }
 }
-
