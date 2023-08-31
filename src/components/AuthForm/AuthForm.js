@@ -37,3 +37,4 @@ export default function AuthForm(props) {
     </section>
   );
 }
+
