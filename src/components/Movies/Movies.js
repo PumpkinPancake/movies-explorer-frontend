@@ -35,6 +35,14 @@ export default function Movies() {
       setFilteredMovies(shortFilms);
     }
   };
+  useEffect(() => {
+    const savedSearchQuery = localStorage.getItem("searchQuery");
+    const savedFilteredMovies = JSON.parse(localStorage.getItem("filteredMovies"));
+    if (savedSearchQuery && savedFilteredMovies) {
+        setSearchQuery(savedSearchQuery);
+        setFilteredMovies(savedFilteredMovies);
+    }
+}, []);
 
   useEffect(() => {
     const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];

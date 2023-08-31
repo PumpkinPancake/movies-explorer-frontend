@@ -13,7 +13,7 @@ export default function SavedMovies() {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    localStorage.setItem("searchQuery", query);
+    // localStorage.setItem("searchQuery", query);
   };
 
   const updateFilteredSavedMovies = (filteredData) => {

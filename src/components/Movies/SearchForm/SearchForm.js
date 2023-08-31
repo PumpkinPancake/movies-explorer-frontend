@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./SearchForm.css";
 import searchImg from "../../../images/search-icon.svg";
-import { useLocation } from "react-router-dom";
 
 export default function SearchForm({
   isShortFilmFilterActive,
@@ -14,13 +13,11 @@ export default function SearchForm({
   const [formSearchQuery, setFormSearchQuery] = useState("");
   const [isEmptyQuery, setIsEmptyQuery] = useState(false);
   const [noMatchingResults, setNoMatchingResults] = useState(false);
-  const [filteredMovies, setFilteredMovies] = useState([]);
 
-
-  const handleCheckboxChange = () => {  
+  const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
     setIsShortFilmFilterActive(!isShortFilmFilterActive);
-  
+
     const filteredMovies = filterMovies(formSearchQuery, moviesData);
     updateFilteredMovies(filteredMovies);
   };
@@ -37,17 +34,18 @@ export default function SearchForm({
 
   const handleSearchFormSubmit = (e) => {
     e.preventDefault();
-
     if (formSearchQuery.trim().length === 0) {
       setIsEmptyQuery(true);
       return;
     }
-
+    const filteredMovies = filterMovies(formSearchQuery, moviesData);
+    updateFilteredMovies(filteredMovies);
     setIsEmptyQuery(false);
     setNoMatchingResults(filteredMovies.length === 0);
     onSearch(formSearchQuery);
+    localStorage.setItem("filteredMovies", JSON.stringify(filteredMovies));
+    localStorage.setItem("searchQuery", formSearchQuery);
   };
-
 
   const inputPlaceholder = isEmptyQuery
     ? "Нужно ввести ключевое слово"
