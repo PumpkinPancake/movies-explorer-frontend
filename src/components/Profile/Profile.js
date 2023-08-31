@@ -1,7 +1,6 @@
-import "./Profile.css";
-
 import React, { useState, useEffect } from "react";
 import mainApi from "../../utils/MainApi";
+import './Profile.css';
 
 export default function Profile({ handleLogout }) {
   const [isLoading, setIsLoading] = useState(false);

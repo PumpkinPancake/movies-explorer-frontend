@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./SearchForm.css";
-import searchImg from "../../images/search-icon.svg";
+import searchImg from "../../../images/search-icon.svg";
 import { useLocation } from "react-router-dom";
 
 export default function SearchForm({

@@ -9,7 +9,6 @@
 
 .header__logo {
   padding: 18px 0;
-  cursor: pointer;
   transition: all 0.2s ease-out;
 }
 
@@ -59,6 +58,11 @@
   font-weight: 400;
   text-decoration: none;
   color: black;
+  transition: all 0.2s ease-out;
+}
+
+.header__link:hover {
+  opacity: .6;
 }
 
 .header__link_active {
@@ -67,6 +71,11 @@
   font-size: 13px;
   text-decoration: none;
   color: black;
+  transition: all 0.2s ease-out;
+}
+
+.header__link_active:hover {
+  opacity: .6;
 }
 
 .header__button-profile {
@@ -96,15 +105,15 @@
     display: block;
   }
 
+  .header__buttons {
+    display: none;
+  }
+
   .header__list {
     display: none;
   }
 
   .header__button-profile {
-    display: none;
-  }
-
-  .header__buttons {
     display: none;
   }
 }
@@ -122,7 +131,7 @@
 @media screen and (max-width: 480px) {
   .header {
     width: calc(100% - 2 * 14px);
-    margin-bottom: 32px;
+    
   }
 
   .header__no-auth {

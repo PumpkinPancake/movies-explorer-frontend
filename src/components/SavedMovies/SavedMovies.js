@@ -13,7 +13,7 @@ export default function SavedMovies() {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    localStorage.setItem("searchQuery", query)
+    localStorage.setItem("searchQuery", query);
   };
 
   const updateFilteredSavedMovies = (filteredData) => {
@@ -54,22 +54,24 @@ export default function SavedMovies() {
 
   return (
     <>
-      <section className="saved-movies">
-        <SearchForm
-         isShortFilmFilterActive={isShortFilmFilterActive}
-         setIsShortFilmFilterActive={setIsShortFilmFilterActive}
-         onSearch={handleSearch}
-         moviesData={savedMoviesData}
-         updateFilteredMovies={updateFilteredSavedMovies}
-        />
-        <MoviesCardList
-          moviesData={filteredSavedMovies}
-          isShortFilmFilterActive={isShortFilmFilterActive}
-          searchQuery={searchQuery}
-          handleSaveMovie={handleDeleteMovie}
-          savedMoviesData={savedMoviesData}
-        />
-      </section>
+      <main>
+        <section className="saved-movies">
+          <SearchForm
+            isShortFilmFilterActive={isShortFilmFilterActive}
+            setIsShortFilmFilterActive={setIsShortFilmFilterActive}
+            onSearch={handleSearch}
+            moviesData={savedMoviesData}
+            updateFilteredMovies={updateFilteredSavedMovies}
+          />
+          <MoviesCardList
+            moviesData={filteredSavedMovies}
+            isShortFilmFilterActive={isShortFilmFilterActive}
+            searchQuery={searchQuery}
+            handleSaveMovie={handleDeleteMovie}
+            savedMoviesData={savedMoviesData}
+          />
+        </section>
+      </main>
       <Footer />
     </>
   );

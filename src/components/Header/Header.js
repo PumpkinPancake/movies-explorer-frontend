@@ -1,10 +1,10 @@
 import "./Header.css";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import logo from "../images/logo.svg";
-import icon from "..//images/icon_people.svg";
+import logo from "../../images/logo.svg";
+import icon from "../../images/icon_people.svg";
 import Burger from "../BurgerMenu/BurgerMenu";
 import { useState } from "react";
-import menuImg from "../images/burger.svg";
+import menuImg from "../../images/burger.svg";
 
 export default function Header({ loggedIn }) {
   const location = useLocation();
@@ -67,7 +67,7 @@ export default function Header({ loggedIn }) {
           >
             <img
               src={menuImg}
-              className="burger-menu__img"
+              className="burger-menu-img"
               alt="Иконка меню"
             ></img>
           </button>
@@ -105,7 +105,7 @@ export default function Header({ loggedIn }) {
           >
             <img
               src={menuImg}
-              className="burger-menu__img"
+              className="burger-menu-img"
               alt="Иконка меню"
             ></img>
           </button>

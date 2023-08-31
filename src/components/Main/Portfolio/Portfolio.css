@@ -6,6 +6,7 @@
 .portfolio__list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .portfolio__title {
@@ -13,20 +14,19 @@
   font-weight: 400;
   margin: 0;
   color: #a0a0a0;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   line-height: 20px;
-  letter-spacing: -0.04em;
 }
 
 .portfolio__link {
-  letter-spacing: -0.04em;
+  letter-spacing: -0.06em;
   display: block;
   position: relative;
   text-decoration: none;
-  font-size: 30px;
+  font-size: 33px;
   line-height: 50px;
   color: black;
-  padding: 20px 0 ;
+  padding: 9px 0 ;
   width: 100%;
   cursor: pointer;
   transition: all .2s ease-out;
@@ -34,12 +34,12 @@
 
 .portfolio__link::before {
   content: "";
-  top: 10px;
-  right: 0;
+  top: 5px;
+  right: 5px;
   position: absolute;
   width: 20px;
   height: 68px;
-  background-image: url("../../images/arrow-link.svg");
+  background-image: url("../../../images/arrow-link.svg");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -95,16 +95,17 @@
   .portfolio__link {
     font-size: 18px;
     line-height: 28px;
+    padding: 7px 0 10px;
   }
 
   .portfolio__link::before {
     content: "";
-    top: 22px;
+    top: 6px;
     right: 0;
     position: absolute;
-    width: 18px;
-    height: 21px;
-    background-image: url("../../images/arrow-link.svg");
+    width: 10px;
+    height: 15px;
+    background-image: url("../../../images/arrow-link.svg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

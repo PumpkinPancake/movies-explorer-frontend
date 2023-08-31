@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import delBtn from "../../images/del_button.svg";
+import delBtn from "../../../images/del_button.svg";
 import { useLocation } from "react-router-dom";
-import iconCheck from "../../images/icon-chesk.svg";
+import iconCheck from "../../../images/icon-chesk.svg";
 
 import "./MoviesCard.css";
 

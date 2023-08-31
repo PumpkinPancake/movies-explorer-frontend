@@ -78,12 +78,12 @@ export default function Register({ handleRegister }) {
       linkText="Войти"
       onSubmit={handleSubmit}
     >
-      <label className="auth-form__label">
+      <label className="auth-form-label">
         Имя
         <input
           onChange={handleChangeValue}
-          className={`auth-form__input ${
-            errors.name ? "auth-form__input_error" : ""
+          className={`auth-form-input ${
+            errors.name ? "auth-form-input_error" : ""
           }`}
           type="text"
           name="name"
@@ -96,8 +96,8 @@ export default function Register({ handleRegister }) {
         ></input>
         {errors.name && (
           <span
-            className={`auth-form__input-error_text ${
-              errors.name ? "auth-form__input-error_text_active" : ""
+            className={`auth-form-input-error-text ${
+              errors.name ? "auth-form-input-error-text_active" : ""
             }`}
           >
             {validationMessages.name}
@@ -105,12 +105,12 @@ export default function Register({ handleRegister }) {
         )}
       </label>
 
-      <label className="auth-form__label">
+      <label className="auth-form-label">
         E-mail
         <input
           onChange={handleChangeValue}
-          className={`auth-form__input ${
-            errors.email ? "auth-form__input_error" : ""
+          className={`auth-form-input ${
+            errors.email ? "auth-form-input_error" : ""
           }`}
           type="email"
           name="email"
@@ -122,8 +122,8 @@ export default function Register({ handleRegister }) {
         ></input>
         {errors.email && (
           <span
-            className={`auth-form__input-error_text ${
-              errors.email ? "auth-form__input-error_text_active" : ""
+            className={`auth-form-input-error-text ${
+              errors.email ? "auth-form-input-error-text_active" : ""
             }`}
           >
             {validationMessages.email}
@@ -131,12 +131,12 @@ export default function Register({ handleRegister }) {
         )}
       </label>
 
-      <label className="auth-form__label">
+      <label className="auth-form-label auth-form-label_register">
         Пароль
         <input
           onChange={handleChangeValue}
-          className={`auth-form__input ${
-            errors.password ? "auth-form__input_error" : ""
+          className={`auth-form-input ${
+            errors.password ? "auth-form-input_error" : ""
           }`}
           type="password"
           name="password"
@@ -149,15 +149,15 @@ export default function Register({ handleRegister }) {
         ></input>
         {errors.password && (
           <span
-            className={`auth-form__input-error_text ${
-              errors.password ? "auth-form__input-error_text_active" : ""
+            className={`auth-form-input-error-text ${
+              errors.password ? "auth-form-input-error-text_active" : ""
             }`}
           >
             {validationMessages.password}
           </span>
         )}
       </label>
-      <span className="auth-form__input-error_span">{registrationError}</span>
+      <span className="auth-form-input-error-span">{registrationError}</span>
     </AuthForm>
   );
 }

@@ -1,32 +1,32 @@
 import "./BurgerMenu.css";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import icon from "../images/icon_people.svg";
+import icon from '../../images/icon_people.svg';
 
 
 export default function BurgerMenu({ onClose, isOpen }) {
   const location = useLocation();
 
   return isOpen ? (
-    <div className="burger__overlay">
+    <div className="burger-overlay">
       <div
-        className={isOpen ? "burger__menu burger__menu_open" : "burger__menu"}
+        className={isOpen ? "burger-menu burger-menu_open" : "burger-menu"}
       >
         <button
-          className="burger__close-button"
+          className="burger-close-button"
           type="button"
           onClick={onClose}
         >
         </button>
-        <nav className="burger__nav">
-          <ul className="burger__list">
+        <nav className="burger-nav">
+          <ul className="burger-list">
             <li>
               <NavLink
                 to="/"
                 onClick={onClose}
                 className={
                   location.pathname === "/"
-                    ? "burger__link burger__link_active"
-                    : "burger__link"
+                    ? "burger-link burger-link_active"
+                    : "burger-link"
                 }
               >
                 Главная
@@ -38,8 +38,8 @@ export default function BurgerMenu({ onClose, isOpen }) {
                 onClick={onClose}
                 className={
                   location.pathname === "/movies"
-                    ? "burger__link burger__link_active"
-                    : "burger__link"
+                    ? "burger-link burger-link_active"
+                    : "burger-link"
                 }
               >
                 Фильмы
@@ -51,8 +51,8 @@ export default function BurgerMenu({ onClose, isOpen }) {
                 onClick={onClose}
                 className={
                   location.pathname === "/saved-movies"
-                    ? "burger__link burger__link_active"
-                    : "burger__link"
+                    ? "burger-link burger-link_active"
+                    : "burger-link"
                 }
               >
                 Сохраненные фильмы
@@ -60,11 +60,11 @@ export default function BurgerMenu({ onClose, isOpen }) {
             </li>
           </ul>
         </nav>
-        <Link to="/profile" className="burger__profile" onClick={onClose}>
-          <button className="burger__button-profile">
+        <Link to="/profile" className="burger-profile" onClick={onClose}>
+          <button className="burger-button-profile">
             <img
               src={icon}
-              className="burger__img-profile"
+              className="burger-img-profile"
               alt="иконка человечка"
             ></img>
             Аккаунт
