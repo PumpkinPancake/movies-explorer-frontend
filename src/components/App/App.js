@@ -106,6 +106,20 @@ function App() {
           }
         />
         <Route
+          path="/profile"
+          element={
+            <>
+              <Header loggedIn={loggedIn} />
+
+              <ProtectedRoute
+                loggedIn={loggedIn}
+                component={Profile}
+                handleLogout={handleLogout}
+              />
+            </>
+          }
+        />
+        <Route
           path="/signup"
           element={<Register handleRegister={handleRegister} />}
         ></Route>
