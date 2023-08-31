@@ -10,6 +10,11 @@
 .header__logo {
   padding: 18px 0;
   cursor: pointer;
+  transition: all 0.2s ease-out;
+}
+
+.header__logo:hover {
+  opacity: .6;
 }
 
 .header__buttons {
