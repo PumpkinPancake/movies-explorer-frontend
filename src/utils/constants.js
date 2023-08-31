@@ -26,4 +26,5 @@ export const errorMessage = {
   conflict: "Пользователь с таким e-mail уже существует",
   other: "Ошибка при регистрации.",
   login: "Неверный email или пароль.",
+  search: "Нужно ввести ключевое слово."
 };

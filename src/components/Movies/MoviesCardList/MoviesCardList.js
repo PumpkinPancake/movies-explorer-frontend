@@ -5,12 +5,12 @@ import { useLocation } from "react-router-dom";
 
 export default function MoviesCardList({
   moviesData,
-  isShortFilmFilterActive,
-  searchQuery,
   handleSaveMovie,
   savedMoviesData,
+  isShortFilmFilterActive,
 }) {
   const [visibleMoviesCount, setVisibleMoviesCount] = useState(0);
+  const [remainingMovies, setRemainingMovies] = useState(0);
   const location = useLocation();
   const inSavedMovies = location.pathname === "/saved-movies";
 
@@ -33,25 +33,16 @@ export default function MoviesCardList({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [savedMoviesData]);
+  }, [moviesData]);
 
-  const filteredMovies = isShortFilmFilterActive
-    ? moviesData.filter((movie) => movie.duration <= 40)
-    : moviesData;
-
-  const displayedMovies = searchQuery
-    ? filteredMovies.filter((movie) =>
-        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : filteredMovies;
-
-  const remainingMovies = displayedMovies.length - visibleMoviesCount;
+  useEffect(() => {
+    setRemainingMovies(moviesData.length - visibleMoviesCount);
+  }, [moviesData, visibleMoviesCount]);
 
   return (
     <section className="movies-card">
       <ul className="movies-card__list">
-        {displayedMovies.slice(0, visibleMoviesCount).map((movie) => {
-          console.log("Сейвед муви дата:", savedMoviesData);
+        {moviesData.slice(0, visibleMoviesCount).map((movie) => {
           return (
             <li
               className="movies-card__item"

@@ -102,7 +102,6 @@ class MainApi {
   }
 
   deleteMovie(movieId) {
-    console.log("Отправка запроса DELETE для фильма с идентификатором:", movieId);
     return fetch(`${this._url}/movies/${movieId}`, {
       method: "DELETE",
       headers: {
@@ -113,7 +112,6 @@ class MainApi {
   }
 
   saveMovie(movie) {
-    console.log("Сохранение фильма с данными:", movie);
     return fetch(`${this._url}/movies`, {
       method: "POST",
       headers: {

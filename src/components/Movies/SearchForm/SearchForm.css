@@ -13,6 +13,15 @@
   margin: 0 0 10px 0;
 }
 
+.search-form__no-results {
+  margin-top: 15px;
+  font-size: 15px;
+  text-align: left;
+  min-height: 10px;
+  font-weight: 400;
+
+}
+
 .search-form__label {
   display: flex;
   border: 1.5px solid rgba(170, 170, 170, 0.2);
