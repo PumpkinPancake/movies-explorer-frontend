@@ -5,7 +5,7 @@ import "./AuthForm.css";
 
 export default function AuthForm(props) {
   const formClass = `auth-form__form auth-form__form_type_${props.name}`;
-  const submitClass = `auth-form__button auth-form__button_type_${props.name}`;
+  const submitClass = `${props.isFormValid ? `auth-form__button auth-form__button_type_${props.name}` : "auth-form__button_disabled"}`;
 
   return (
     <section className="auth-form">
@@ -22,7 +22,11 @@ export default function AuthForm(props) {
           {props.children}
 
           <div className="auth-form__wrapper">
-            <button type="submit" className={submitClass}>
+            <button
+              type="submit"
+              className={submitClass}
+              disabled={!props.isFormValid}
+            >
               {props.submitButtonText}
             </button>
             <p className="auth-form__text">
@@ -37,4 +41,3 @@ export default function AuthForm(props) {
     </section>
   );
 }
-

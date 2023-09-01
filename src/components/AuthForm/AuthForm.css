@@ -83,6 +83,10 @@
   color: #ee3465;
 }
 
+.auth-form-input_error:focus {
+  border-bottom: 1px solid #ee3465;
+}
+
 .auth-form-input-error-text {
   min-height: 10px;
   visibility: hidden;
@@ -115,6 +119,18 @@
 
 .auth-form__button:hover {
   opacity: 0.6;
+}
+
+.auth-form__button_disabled {
+  opacity: none;
+  background-color: #e8e8e8;
+  color: black;
+  cursor: not-allowed;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 13px 0;
+  border: none;
 }
 
 .auth-form__text {
