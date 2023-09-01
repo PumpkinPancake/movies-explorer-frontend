@@ -21,6 +21,7 @@ export default function Register({ handleRegister }) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [registrationError, setRegistrationError] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleChangeValue = (e) => {
     const { name, value } = e.target;
@@ -30,6 +31,12 @@ export default function Register({ handleRegister }) {
     });
 
     handleChange(e);
+    const form = e.target.closest("form");
+    if (form) {
+      const isValid = form.checkValidity();
+      setIsFormValid(isValid);
+    }
+
     if (!value) {
       resetErrors({ ...errors, [name]: "" });
     } else {
@@ -70,6 +77,7 @@ export default function Register({ handleRegister }) {
 
   return (
     <AuthForm
+      isFormValid={isFormValid}
       title="Добро пожаловать!"
       name="register"
       submitButtonText={isLoading ? "Регистрация..." : "Зарегистрироваться"}
