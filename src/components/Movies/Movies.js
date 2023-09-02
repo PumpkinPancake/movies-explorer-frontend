@@ -1,145 +1,89 @@
 import React, { useState, useEffect } from "react";
 import "./Movies.css";
-import SearchForm from "./SearchForm/SearchForm";
-import MoviesCardList from "./MoviesCardList/MoviesCardList";
+import SearchForm from "../SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
-import moviesApi from "../../utils/MoviesApi";
-import mainApi from "../../utils/MainApi";
 import Preloader from "../Preloader/Preloader";
+import { FilterMovies } from "../../utils/FilterMovies";
+import { useResize } from "../../utils/HandleResize";
+import MoviesCard from "../MoviesCard/MoviesCard";
 
-export default function Movies() {
-  const [isShortFilmFilterActive, setIsShortFilmFilterActive] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+export default function Movies(props) {
+  const showCountMovies = useResize();
 
-  const [moviesData, setMoviesData] = useState(() => {
-    const data = JSON.parse(localStorage.getItem("moviesData")) || [];
-    return data;
+  const [searchQuery, setSearchQuery] = useState(
+    localStorage.getItem("queryMovies") || "",
+  );
+
+  const [isShort, setIsShort] = useState(() => {
+    const savedShortMovies = localStorage.getItem("shortMovies");
+    return savedShortMovies ? JSON.parse(savedShortMovies) : false;
   });
 
-  const [savedMoviesData, setSavedMoviesData] = useState(() => {
-    const data = JSON.parse(localStorage.getItem("savedMovies")) || [];
-    return data;
-  });
-
-  const [searchQuery, setSearchQuery] = useState(() => {
-    const data = localStorage.getItem("searchQuery") || "";
-    return data;
-  });
-
-  const [filteredMovies, setFilteredMovies] = useState([]);
-
-  const updateFilteredMovies = (filteredData) => {
-    setFilteredMovies(filteredData);
-    if (isShortFilmFilterActive) {
-      const shortFilms = filteredData.filter((movie) => movie.duration <= 40);
-      setFilteredMovies(shortFilms);
-    }
-  };
-  useEffect(() => {
-    const savedSearchQuery = localStorage.getItem("searchQuery");
-    const savedFilteredMovies = JSON.parse(localStorage.getItem("filteredMovies"));
-    if (savedSearchQuery && savedFilteredMovies) {
-        setSearchQuery(savedSearchQuery);
-        setFilteredMovies(savedFilteredMovies);
-    }
-}, []);
+  const [movieCount, setMovieCount] = useState(0);
 
   useEffect(() => {
-    const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
-    setSavedMoviesData(savedMovies);
-  }, []);
+    setMovieCount(showCountMovies.moviesOnPage);
+  }, [showCountMovies]);
 
   useEffect(() => {
-    setIsLoading(true);
-
-    moviesApi
-      .getMovies()
-      .then((data) => {
-        localStorage.setItem("moviesData", JSON.stringify(data));
-        setMoviesData(data);
-      })
-      .catch((error) => {
-        console.error("Ошибка при получении данных:", error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+    localStorage.setItem("queryMovies", searchQuery);
+  }, [searchQuery]);
 
   useEffect(() => {
-    mainApi
-      .getUserMovies()
-      .then((data) => {
-        setSavedMoviesData(data);
-      })
-      .catch((error) => {
-        console.error("Error while fetching saved movies:", error);
-      });
-  }, []);
+    localStorage.setItem("shortMovies", JSON.stringify(isShort));
+  }, [isShort]);
 
-  const handleSearch = (query) => {
+  function handleSearch(query) {
     setSearchQuery(query);
-    localStorage.setItem("searchQuery", query);
-  };
+  }
 
-  const handleSaveMovie = (movieId, newIsSave) => {
-    const movieToSave = moviesData.find((movie) => movie.id === movieId);
+  function handleToggleShort(checked) {
+    setIsShort(checked);
+  }
 
-    if (!movieToSave) {
-      console.error("Movie not found for ID:", movieId);
-      return;
-    }
+  const filteredMovies = FilterMovies(
+    props.moviesData,
+    searchQuery,
+    isShort,
+    movieCount,
+  );
 
-    if (newIsSave) {
-      setIsLoading(true);
-      mainApi
-        .saveMovie(movieToSave)
-        .then((savedMovie) => {
-          setSavedMoviesData([...savedMoviesData, savedMovie]);
-          localStorage.setItem(
-            "savedMovies",
-            JSON.stringify([...savedMoviesData, savedMovie])
-          );
-          const updatedMoviesData = moviesData.map((movie) =>
-            movie.id === movieId ? { ...movie, isSaved: true } : movie
-          );
+  const moviesCards = filteredMovies.filteredMovies.map((el, index) => {
+    return (
+      <li className="movies-card__item" key={index}>
+        <MoviesCard
+          key={el.id}
+          class={el.class}
+          movie={el}
+          onRemove={props.handleDelete}
+          onSave={props.handleSave}
+        />
+      </li>
+    );
+  });
 
-          localStorage.setItem("moviesData", JSON.stringify(updatedMoviesData));
+  function addMovies() {
+    setMovieCount(movieCount + showCountMovies.addMoviesOnPage);
+  }
 
-          setMoviesData(updatedMoviesData);
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error while saving movie:", error);
-        });
-    }
-  };
-
+  // console.log("moviesData", filteredMovies);
   return (
     <>
       <main>
         <section className="movies">
           <SearchForm
-            isShortFilmFilterActive={isShortFilmFilterActive}
-            setIsShortFilmFilterActive={setIsShortFilmFilterActive}
             onSearch={handleSearch}
-            moviesData={moviesData}
-            updateFilteredMovies={updateFilteredMovies}
+            onToggle={handleToggleShort}
+            checked={isShort}
+            searchQuery={searchQuery}
           />
 
-          {isLoading ? (
-            <Preloader />
-          ) : (
-            <MoviesCardList
-              moviesData={
-                filteredMovies.length > 0 ? filteredMovies : moviesData
-              }
-              isShortFilmFilterActive={isShortFilmFilterActive}
-              searchQuery={searchQuery}
-              handleSaveMovie={handleSaveMovie}
-              savedMoviesData={savedMoviesData}
-            />
-          )}
+          <MoviesCardList
+            addMovies={addMovies}
+            moviesData={moviesCards}
+            maxMovies={filteredMovies.maxMovies}
+          />
         </section>
       </main>
       <Footer />

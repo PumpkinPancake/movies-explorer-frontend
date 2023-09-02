@@ -81,6 +81,29 @@
   transition: all 0.2s ease-out;
 }
 
+.profile__button-submit {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background-color: #2be080;
+  padding: 13px 0;
+  border: none;
+  cursor: pointer;
+}
+
+.profile__button-submit_disabled {
+  opacity: none;
+  background-color: #e8e8e8;
+  color: black;
+  cursor: not-allowed;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 13px 0;
+  border: none;
+}
+
 .profile__button-exit:hover {
   opacity: 0.6;
 }

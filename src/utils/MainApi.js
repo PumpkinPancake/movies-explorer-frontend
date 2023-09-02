@@ -1,5 +1,4 @@
-import { MAIN_API } from "./constants";
-import { MOVIES_API } from "./constants";
+import { MAIN_API, MOVIES_API } from "./Constants";
 
 class MainApi {
   constructor(config) {
@@ -8,19 +7,12 @@ class MainApi {
   }
 
   _handleResponce(res) {
-    console.log("Response status:", res.status);
-
-    if (res.ok) {
-      return res.json();
+    if (!res.ok) {
+      return Promise.reject({
+        status: `Ошибка: ${res.status}`,
+      });
     }
-
-    if (res.status === 401) {
-      console.log("Unauthorized error:", res);
-    }
-
-    console.log("Error response:", res);
-
-    return Promise.reject(new Error(`Ошибка: ${res.status}`));
+    return res.json();
   }
 
   getRegisterUser({ name, email, password }) {
@@ -127,7 +119,7 @@ class MainApi {
         image: `${MOVIES_API.url}${movie.image.url}`,
         trailerLink: movie.trailerLink,
         thumbnail: `${MOVIES_API.url}${movie.image.formats.thumbnail.url}`,
-        movieId: `${movie.id}`,
+        movieId: movie.id,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
       }),

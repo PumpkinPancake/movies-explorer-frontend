@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import AuthForm from "../AuthForm/AuthForm";
 import mainApi from "../../utils/MainApi";
-import useFormValidation from "../Hooks/useFormValidation";
-import { inputErrorMessage, errorMessage } from "../../utils/constants";
+import useFormValidation from "../../Hooks/useFormValidation";
+import { inputErrorMessage, errorMessage } from "../../utils/Constants";
 
 const validationMessages = {
   name: inputErrorMessage.name,

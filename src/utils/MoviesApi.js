@@ -1,4 +1,4 @@
-import { MOVIES_API } from "./constants";
+import { MOVIES_API } from "./Constants";
 
 class MoviesApi {
   constructor(config) {
