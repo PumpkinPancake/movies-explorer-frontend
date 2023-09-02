@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useLocation } from "react-router-dom";
-import { errorMessage } from "../../utils/Constants";
+import { errorMessage } from "../../utils/Constants3";
 
 export default function MoviesCardList({
   moviesData,

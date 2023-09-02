@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MAXADDMOVIES, MAXMOVIESONPAGE } from "./Constants";
+import { MAXADDMOVIES, MAXMOVIESONPAGE } from "./Constants3";
 
 export function useResize() {
   const [moviesToShow, setMoviesToShow] = useState({
