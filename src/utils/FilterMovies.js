@@ -1,5 +1,5 @@
 import { useResize } from "./HandleResize";
-import { SHORTMOVIESDURATION } from "./Constants3";
+import { SHORTMOVIESDURATION } from "./Constants";
 
 export function FilterMovies(movies, query, isShortFilm, count) {
   const defaultCount = useResize();
