@@ -52,8 +52,6 @@ export default function Register({ handleLogin }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(formValue);
-
     setIsLoading(true);
     mainApi
       .getRegisterUser(formValue)
@@ -71,7 +69,6 @@ export default function Register({ handleLogin }) {
           .finally(() => {
             setIsLoading(false);
           });
-        console.log(email, password);
       })
       .catch((err) => {
         if (err.response) {
@@ -179,7 +176,9 @@ export default function Register({ handleLogin }) {
           </span>
         )}
       </label>
-      <span className="auth-form-input-error-span">{registrationError || loginError}</span>
+      <span className="auth-form-input-error-span">
+        {registrationError || loginError}
+      </span>
     </AuthForm>
   );
 }

@@ -31,11 +31,6 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // const handleRegister = () => {
-  //   handleLogin();
-  //   navigate("/movies");
-  // };
-
   const handleLogin = () => {
     setLoggedIn(true);
     navigate("/movies");

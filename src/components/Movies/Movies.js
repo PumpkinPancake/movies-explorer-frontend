@@ -67,7 +67,6 @@ export default function Movies(props) {
     setMovieCount(movieCount + showCountMovies.addMoviesOnPage);
   }
 
-  // console.log("moviesData", filteredMovies);
   return (
     <>
       <main>
