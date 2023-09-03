@@ -31,13 +31,14 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleRegister = () => {
-    navigate("/signin");
-  };
+  // const handleRegister = () => {
+  //   handleLogin();
+  //   navigate("/movies");
+  // };
 
   const handleLogin = () => {
     setLoggedIn(true);
-    navigate("/");
+    navigate("/movies");
   };
 
   const handleLogout = () => {
@@ -196,7 +197,7 @@ function App() {
         />
         <Route
           path="/signup"
-          element={<Register handleRegister={handleRegister} />}
+          element={<Register handleLogin={handleLogin}/>}
         ></Route>
 
         <Route

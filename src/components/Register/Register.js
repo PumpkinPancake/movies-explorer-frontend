@@ -10,8 +10,9 @@ const validationMessages = {
   password: inputErrorMessage.password,
 };
 
-export default function Register({ handleRegister }) {
+export default function Register({ handleLogin }) {
   const { errors, resetErrors, handleChange } = useFormValidation();
+  const [loginError, setLoginError] = useState("");
 
   const [formValue, setFormValue] = useState({
     name: "",
@@ -57,7 +58,20 @@ export default function Register({ handleRegister }) {
     mainApi
       .getRegisterUser(formValue)
       .then(() => {
-        handleRegister();
+        const { email, password } = formValue;
+        mainApi
+          .getLoginUser(formValue)
+          .then((res) => {
+            localStorage.setItem("jwt", res.token);
+            handleLogin();
+          })
+          .catch((err) => {
+            setLoginError(errorMessage.login);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+        console.log(email, password);
       })
       .catch((err) => {
         if (err.response) {
@@ -165,7 +179,7 @@ export default function Register({ handleRegister }) {
           </span>
         )}
       </label>
-      <span className="auth-form-input-error-span">{registrationError}</span>
+      <span className="auth-form-input-error-span">{registrationError || loginError}</span>
     </AuthForm>
   );
 }
