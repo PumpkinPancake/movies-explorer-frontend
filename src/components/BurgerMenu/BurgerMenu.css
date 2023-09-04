@@ -34,7 +34,6 @@
 
 .burger__close-button:hover {
   opacity: 0.6;
-  cursor: pointer;
 }
 
 .burger-list {
@@ -72,6 +71,7 @@
   background-repeat: no-repeat;
   width: 22px;
   height: 22px;
+  cursor: pointer;
 }
 
 .burger-button-profile {
@@ -82,13 +82,18 @@
   padding: 8px 12px;
   border-radius: 50px;
   background-color: white;
-  margin: 0 0 90px 0;
+  margin: 0;
   transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+
+.burger-profile {
+  display: block;
+  margin: 0 0 90px 0;
 }
 
 .burger__button-profile:hover {
   opacity: 0.6;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 480px) {

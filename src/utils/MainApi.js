@@ -58,7 +58,7 @@ class MainApi {
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: {
-        ...this._headers,
+        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: JSON.stringify({

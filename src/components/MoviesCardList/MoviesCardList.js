@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./MoviesCardList.css";
-import MoviesCard from "../MoviesCard/MoviesCard";
-import { useLocation } from "react-router-dom";
 import { errorMessage } from "../../utils/Constants";
+import Preloader from '../Preloader/Preloader';
 
 export default function MoviesCardList({
   moviesData,
   error,
-  onSave,
-  onDelete,
-  resultSearch,
-  isShort,
   addMovies,
   maxMovies,
+  loading
 }) {
+  if (loading) {
+    return <Preloader />;
+  }
   return (
     <section className="movies-card">
       {error ? (

@@ -23,6 +23,8 @@
   text-decoration: none;
   margin: 0 0 60px 0;
   transition: all .2s ease-out;
+  border: none;
+  background: transparent;
 }
 
 .not-found__link:hover {

@@ -83,6 +83,19 @@
   color: #ee3465;
 }
 
+.auth-form-input-message-text {
+  min-height: 10px;
+  visibility: hidden;
+  display: block;
+  color: #63ee34;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.auth-form-input-message-text_active {
+  visibility: visible;
+}
+
 .auth-form-input_error:focus {
   border-bottom: 1px solid #ee3465;
 }

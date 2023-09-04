@@ -3,7 +3,6 @@ import "./Movies.css";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
-import Preloader from "../Preloader/Preloader";
 import { FilterMovies } from "../../utils/FilterMovies";
 import { useResize } from "../../utils/HandleResize";
 import MoviesCard from "../MoviesCard/MoviesCard";
@@ -12,7 +11,7 @@ export default function Movies(props) {
   const showCountMovies = useResize();
 
   const [searchQuery, setSearchQuery] = useState(
-    localStorage.getItem("queryMovies") || "",
+    localStorage.getItem("queryMovies") || ""
   );
 
   const [isShort, setIsShort] = useState(() => {
@@ -46,7 +45,7 @@ export default function Movies(props) {
     props.moviesData,
     searchQuery,
     isShort,
-    movieCount,
+    movieCount
   );
 
   const moviesCards = filteredMovies.filteredMovies.map((el, index) => {
@@ -82,6 +81,7 @@ export default function Movies(props) {
             addMovies={addMovies}
             moviesData={moviesCards}
             maxMovies={filteredMovies.maxMovies}
+            loading={props.loading}
           />
         </section>
       </main>

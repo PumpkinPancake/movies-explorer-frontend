@@ -5,6 +5,8 @@ import { inputErrorMessage } from "../../utils/Constants";
 import useFormValidation from "../../Hooks/useFormValidation";
 
 export default function Profile({ handleLogout }) {
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [formValue, setFormValue] = useState({
     name: "",
@@ -98,8 +100,10 @@ export default function Profile({ handleLogout }) {
           email: res.email,
         });
         setIsEditing(false);
+        setMessage("Успешно обновлено!")
       })
       .catch((err) => {
+        setError("Ошибка при обновлении данных пользователя!")
         console.error("Ошибка при обновлении данных пользователя:", err);
       })
       .finally(() => {
@@ -158,6 +162,12 @@ export default function Profile({ handleLogout }) {
               </span>
             )}
           </form>
+          {error ? <span className={`auth-form-input-error-text ${error ? "auth-form-input-error-text_active" : ""}`}>
+                {error}
+              </span> : <span className={`auth-form-input-message-text ${message ? "auth-form-input-message-text_active" : ""}`}>
+                {message}
+              </span>
+          }
           <div className="profile__wrapper">
             {isEditing ? (
               <button

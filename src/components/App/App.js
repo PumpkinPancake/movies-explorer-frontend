@@ -28,6 +28,8 @@ function App() {
   const [moviesData, setMoviesData] = useState([]);
   const [savedMoviesData, setSavedMoviesData] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -41,7 +43,7 @@ function App() {
     localStorage.removeItem("jwt");
     localStorage.clear();
     setCurrentUser({});
-    navigate("/signin");
+    navigate("/");
   };
 
   const tokenCheck = async () => {
@@ -84,14 +86,14 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([moviesApi.getMovies(), mainApi.getUserMovies()]).then(
-        (res) => {
+      Promise.all([moviesApi.getMovies(), mainApi.getUserMovies()])
+        .then((res) => {
           const movies = res[0];
           const savedMovies = res[1];
 
           const updatesMovies = movies.map((movie) => {
             const savedMovie = savedMovies.find(
-              (saved) => saved.movieId === movie.id,
+              (saved) => saved.movieId === movie.id
             );
             if (savedMovie) {
               return {
@@ -108,8 +110,12 @@ function App() {
           });
           setMoviesData(updatesMovies);
           setSavedMoviesData(updatedSavedMovies);
-        },
-      );
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoading(false);
+        });
     }
   }, [loggedIn]);
 
@@ -119,8 +125,8 @@ function App() {
       .then((res) => {
         setMoviesData((state) =>
           state.map((el) =>
-            el.id === res.movieId ? { ...el, class: "isSaved" } : el,
-          ),
+            el.id === res.movieId ? { ...el, class: "isSaved" } : el
+          )
         );
         res.class = "isRemove";
         setSavedMoviesData((data) => [...data, res]);
@@ -131,20 +137,20 @@ function App() {
 
   function handleDelete(deleteMovieId) {
     const deleteMovie = savedMoviesData.find(
-      (movie) => movie.movieId === deleteMovieId,
+      (movie) => movie.movieId === deleteMovieId
     );
 
     mainApi
       .deleteMovie(deleteMovie._id)
       .then(() => {
         setSavedMoviesData((state) =>
-          state.filter((el) => el.movieId !== deleteMovieId),
+          state.filter((el) => el.movieId !== deleteMovieId)
         );
 
         setMoviesData((state) =>
           state.map((el) =>
-            el.id === deleteMovieId ? { ...el, class: "isNotSaved" } : el,
-          ),
+            el.id === deleteMovieId ? { ...el, class: "isNotSaved" } : el
+          )
         );
       })
       .catch((err) => console.error(err));
@@ -192,12 +198,24 @@ function App() {
         />
         <Route
           path="/signup"
-          element={<Register handleLogin={handleLogin}/>}
+          element={
+            <ProtectedRoute
+              loggedIn={!loggedIn}
+              component={Register}
+              handleLogin={handleLogin}
+            />
+          }
         ></Route>
 
         <Route
           path="/signin"
-          element={<Login handleLogin={handleLogin} />}
+          element={
+            <ProtectedRoute
+              loggedIn={!loggedIn}
+              component={Login}
+              handleLogin={handleLogin}
+            />
+          }
         ></Route>
         <Route
           path="/movies"
@@ -210,6 +228,7 @@ function App() {
                 moviesData={moviesData}
                 handleSave={handleSave}
                 handleDelete={handleDelete}
+                loading={loading}
               />
             </>
           }

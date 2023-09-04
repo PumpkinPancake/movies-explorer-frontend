@@ -12,16 +12,16 @@ export function useResize() {
       const screenWidth = window.innerWidth;
 
       let moviesOnPage = 12;
-      let addMoviesOnPage = 3;
+      let addMoviesOnPage = 12;
 
       if (screenWidth <= 1100) {
         moviesOnPage = 8;
-        addMoviesOnPage = 2;
+        addMoviesOnPage = 8;
       }
 
       if (screenWidth <= 680) {
         moviesOnPage = 5;
-        addMoviesOnPage = 1;
+        addMoviesOnPage = 5;
       }
 
       setMoviesToShow({ moviesOnPage, addMoviesOnPage });

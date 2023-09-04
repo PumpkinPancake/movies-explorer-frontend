@@ -86,6 +86,7 @@ export default function Login({ handleLogin }) {
           }`}
           type="email"
           name="email"
+          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
           required
           id="email-input"
           placeholder="example@gmail.ru"
