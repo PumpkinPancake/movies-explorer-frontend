@@ -29,7 +29,7 @@ export default function Portfolio() {
           <div className="portfolio__line"></div>
           <li>
             <a
-              href="https://pumpkinpancake.github.io/mesto-react/"
+              href="https://github.com/PumpkinPancake/react-mesto-api-full-gha"
               className="portfolio__link"
               target="blank"
             >
