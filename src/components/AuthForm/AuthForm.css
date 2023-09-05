@@ -83,6 +83,23 @@
   color: #ee3465;
 }
 
+.auth-form-input-message-text {
+  min-height: 10px;
+  visibility: hidden;
+  display: block;
+  color: #63ee34;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.auth-form-input-message-text_active {
+  visibility: visible;
+}
+
+.auth-form-input_error:focus {
+  border-bottom: 1px solid #ee3465;
+}
+
 .auth-form-input-error-text {
   min-height: 10px;
   visibility: hidden;
@@ -115,6 +132,18 @@
 
 .auth-form__button:hover {
   opacity: 0.6;
+}
+
+.auth-form__button_disabled {
+  opacity: none;
+  background-color: #e8e8e8;
+  color: black;
+  cursor: not-allowed;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 13px 0;
+  border: none;
 }
 
 .auth-form__text {
@@ -182,10 +211,6 @@
   }
 
   .auth-form__link {
-    font-size: 12px;
-  }
-
-  .auth-form__text {
     font-size: 12px;
   }
 }

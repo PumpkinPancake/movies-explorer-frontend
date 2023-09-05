@@ -19,28 +19,31 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 
 import mainApi from "../../utils/MainApi";
+import moviesApi from "../../utils/MoviesApi";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const [moviesData, setMoviesData] = useState([]);
+  const [savedMoviesData, setSavedMoviesData] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleRegister = () => {
-    navigate("/signin");
-  };
-
   const handleLogin = () => {
     setLoggedIn(true);
-    navigate("/");
+    navigate("/movies");
   };
 
   const handleLogout = () => {
     setLoggedIn(false);
     localStorage.removeItem("jwt");
+    localStorage.clear();
     setCurrentUser({});
-    navigate("/signin");
+    navigate("/");
   };
 
   const tokenCheck = async () => {
@@ -63,7 +66,9 @@ function App() {
   };
 
   useEffect(() => {
-    tokenCheck();
+    tokenCheck()
+      .then()
+      .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
@@ -79,6 +84,78 @@ function App() {
     }
   }, [loggedIn]);
 
+  useEffect(() => {
+    if (loggedIn) {
+      Promise.all([moviesApi.getMovies(), mainApi.getUserMovies()])
+        .then((res) => {
+          const movies = res[0];
+          const savedMovies = res[1];
+
+          const updatesMovies = movies.map((movie) => {
+            const savedMovie = savedMovies.find(
+              (saved) => saved.movieId === movie.id
+            );
+            if (savedMovie) {
+              return {
+                ...movie,
+                class: "isSaved",
+                key: movie.id,
+              };
+            }
+            return { ...movie, class: "isNotSaved", key: movie.id };
+          });
+
+          const updatedSavedMovies = savedMovies.map((movie) => {
+            return { ...movie, class: "isRemove", key: movie.id };
+          });
+          setMoviesData(updatesMovies);
+          setSavedMoviesData(updatedSavedMovies);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoading(false);
+        });
+    }
+  }, [loggedIn]);
+
+  function handleSave(movie) {
+    mainApi
+      .saveMovie(movie)
+      .then((res) => {
+        setMoviesData((state) =>
+          state.map((el) =>
+            el.id === res.movieId ? { ...el, class: "isSaved" } : el
+          )
+        );
+        res.class = "isRemove";
+        setSavedMoviesData((data) => [...data, res]);
+      })
+
+      .catch((err) => console.log(err));
+  }
+
+  function handleDelete(deleteMovieId) {
+    const deleteMovie = savedMoviesData.find(
+      (movie) => movie.movieId === deleteMovieId
+    );
+
+    mainApi
+      .deleteMovie(deleteMovie._id)
+      .then(() => {
+        setSavedMoviesData((state) =>
+          state.filter((el) => el.movieId !== deleteMovieId)
+        );
+
+        setMoviesData((state) =>
+          state.map((el) =>
+            el.id === deleteMovieId ? { ...el, class: "isNotSaved" } : el
+          )
+        );
+      })
+      .catch((err) => console.error(err));
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Routes>
@@ -87,12 +164,24 @@ function App() {
           element={
             <>
               <Header loggedIn={loggedIn} />
-
               <Main />
             </>
           }
         ></Route>
 
+        <Route
+          path="/profile"
+          element={
+            <>
+              <Header loggedIn={loggedIn} />
+              <ProtectedRoute
+                loggedIn={loggedIn}
+                component={Profile}
+                handleLogout={handleLogout}
+              />
+            </>
+          }
+        />
         <Route
           path="/profile"
           element={
@@ -109,19 +198,38 @@ function App() {
         />
         <Route
           path="/signup"
-          element={<Register handleRegister={handleRegister} />}
+          element={
+            <ProtectedRoute
+              loggedIn={!loggedIn}
+              component={Register}
+              handleLogin={handleLogin}
+            />
+          }
         ></Route>
 
         <Route
           path="/signin"
-          element={<Login handleLogin={handleLogin} />}
+          element={
+            <ProtectedRoute
+              loggedIn={!loggedIn}
+              component={Login}
+              handleLogin={handleLogin}
+            />
+          }
         ></Route>
         <Route
           path="/movies"
           element={
             <>
               <Header loggedIn={loggedIn} />
-              <ProtectedRoute loggedIn={loggedIn} component={Movies} />
+              <ProtectedRoute
+                loggedIn={loggedIn}
+                component={Movies}
+                moviesData={moviesData}
+                handleSave={handleSave}
+                handleDelete={handleDelete}
+                loading={loading}
+              />
             </>
           }
         ></Route>
@@ -130,7 +238,12 @@ function App() {
           element={
             <>
               <Header loggedIn={loggedIn} />
-              <ProtectedRoute loggedIn={loggedIn} component={SavedMovies} />
+              <ProtectedRoute
+                loggedIn={loggedIn}
+                component={SavedMovies}
+                handleDelete={handleDelete}
+                savedMoviesData={savedMoviesData}
+              />
             </>
           }
         />

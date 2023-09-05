@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import mainApi from "../../utils/MainApi";
-import './Profile.css';
+import "./Profile.css";
+import { inputErrorMessage } from "../../utils/Constants";
+import useFormValidation from "../../Hooks/useFormValidation";
 
 export default function Profile({ handleLogout }) {
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [formValue, setFormValue] = useState({
     name: "",
@@ -14,6 +18,14 @@ export default function Profile({ handleLogout }) {
   });
 
   const [isEditing, setIsEditing] = useState(false);
+  const [isDataChanged, setIsDataChanged] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const { errors, resetErrors, handleChange } = useFormValidation();
+
+  const validationMessages = {
+    email: inputErrorMessage.email,
+    name: inputErrorMessage.name,
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -43,9 +55,30 @@ export default function Profile({ handleLogout }) {
       ...formValue,
       [name]: value,
     });
+    setIsDataChanged(value !== editingValue[name]);
+
+    const form = e.target.closest("form");
+    if (form) {
+      const isValid = form.checkValidity();
+      setIsFormValid(isValid);
+    }
+
+    if (!value) {
+      resetErrors({ ...errors, [name]: "" });
+    } else {
+      const { validity } = e.target;
+      resetErrors({
+        ...errors,
+        [name]: validity.valid ? "" : validationMessages[name],
+      });
+    }
   };
 
   const handleEditClick = () => {
+    if (!isEditing) {
+      setEditingValue({ ...formValue });
+      setIsDataChanged(false);
+    }
     setIsEditing(!isEditing);
   };
 
@@ -67,8 +100,10 @@ export default function Profile({ handleLogout }) {
           email: res.email,
         });
         setIsEditing(false);
+        setMessage("Успешно обновлено!")
       })
       .catch((err) => {
+        setError("Ошибка при обновлении данных пользователя!")
         console.error("Ошибка при обновлении данных пользователя:", err);
       })
       .finally(() => {
@@ -94,25 +129,55 @@ export default function Profile({ handleLogout }) {
                 readOnly={!isEditing}
               ></input>
             </label>
+            {errors.name && (
+              <span
+                className={`auth-form-input-error-text ${
+                  errors.name ? "auth-form-input-error-text_active" : ""
+                }`}
+              >
+                {validationMessages.name}
+              </span>
+            )}
+
             <div className="profile__line"></div>
             <label className="profile__label">
               <span className="profile__label-text">E-mail</span>
-
               <input
                 type="email"
                 name="email"
+                pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
                 className="profile__input"
                 value={formValue.email}
                 onChange={handleChangeValue}
                 readOnly={!isEditing}
               ></input>
             </label>
+            {errors.email && (
+              <span
+                className={`auth-form-input-error-text ${
+                  errors.email ? "auth-form-input-error-text_active" : ""
+                }`}
+              >
+                {validationMessages.email}
+              </span>
+            )}
           </form>
+          {error ? <span className={`auth-form-input-error-text ${error ? "auth-form-input-error-text_active" : ""}`}>
+                {error}
+              </span> : <span className={`auth-form-input-message-text ${message ? "auth-form-input-message-text_active" : ""}`}>
+                {message}
+              </span>
+          }
           <div className="profile__wrapper">
             {isEditing ? (
               <button
                 type="submit"
-                className="profile__button profile__button-submit"
+                disabled={!isDataChanged || !isFormValid}
+                className={`${
+                  isDataChanged && isFormValid
+                    ? "profile__button profile__button-submit"
+                    : "profile__button-submit_disabled"
+                }`}
                 onClick={handleSubmit}
               >
                 Сохранить

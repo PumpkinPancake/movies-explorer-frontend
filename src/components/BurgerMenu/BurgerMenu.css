@@ -32,9 +32,8 @@
   transition: all 0.2s ease-out;
 }
 
-.burger-close-button:hover {
+.burger__close-button:hover {
   opacity: 0.6;
-  cursor: pointer;
 }
 
 .burger-list {
@@ -58,11 +57,7 @@
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease-out;
-}
-
-.burger-link:hover {
-  opacity: 0.6;
+  opacity: 60%;
 }
 
 .burger-close-button {
@@ -76,6 +71,7 @@
   background-repeat: no-repeat;
   width: 22px;
   height: 22px;
+  cursor: pointer;
 }
 
 .burger-button-profile {
@@ -86,21 +82,22 @@
   padding: 8px 12px;
   border-radius: 50px;
   background-color: white;
-  margin: 0 0 90px 0;
+  margin: 0;
   transition: all 0.2s ease-out;
-}
-
-.burger-button-profile:hover {
-  opacity: 0.6;
   cursor: pointer;
 }
 
-.burger-img-profile {
-  padding: 0 7px 0 0;
+.burger-profile {
+  display: block;
+  margin: 0 0 90px 0;
+}
+
+.burger__button-profile:hover {
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 480px) {
-  .burger-menu {
+  .burger__menu {
     width: 100%;
   }
 }

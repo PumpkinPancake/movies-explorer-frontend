@@ -15,7 +15,7 @@ export default function Footer() {
           <a href="https://practicum.yandex.ru/" target="blank" className="footer__link">
             Яндекс.Практикум
           </a>
-          <a href="https://github.com/PumpkinPancake" target="blank" className="footer__link">
+          <a href="https://github.com" target="blank" className="footer__link">
             Github
           </a>
         </div>

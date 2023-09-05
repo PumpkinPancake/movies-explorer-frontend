@@ -48,11 +48,13 @@
 }
 
 .about-project__week_color {
-    background-color: #2BE080;
+  background-color: #2be080;
 }
 
 .about-project__direction {
   margin: 0;
+  padding: 15px 0 0 0;
+  font-size: 16px;
   padding: 15px 0 0 0;
   font-size: 16px;
   line-height: 13px;
@@ -62,32 +64,13 @@
 }
 
 @media screen and (max-width: 768px) {
-.about-project {
-  margin-top: 85px;
-}
-
   .about-project__container {
     width: calc(100% - 2 * 50px);
     padding-bottom: 70px;
   }
-
-  .about-project__list {
-    padding-top: 70px;
-  }
-
-  .about-project__title {
-    padding-bottom: 15px;
-  }
-
-  .about-project__bar {
-    padding: 90px 0 0 0;
-  }
 }
 
-@media screen and (max-width:480px) {
-  .about-project {
-    margin-top: 70px;
-  }
+@media screen and (max-width: 480px) {
   .about-project__container {
     width: calc(100% - 2 * 18px);
   }
@@ -104,14 +87,6 @@
   .about-project__text {
     font-size: 11px;
     line-height: 16px;
-  }
-
-  .about-project__bar {
-    padding: 65px 0 0 0;
-  }
-
-  .about-project__week {
-    font-size: 12px;
   }
 
   .about-project__direction {

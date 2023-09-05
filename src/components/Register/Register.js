@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import AuthForm from "../AuthForm/AuthForm";
 import mainApi from "../../utils/MainApi";
-import useFormValidation from "../Hooks/useFormValidation";
-import { inputErrorMessage, errorMessage } from "../../utils/constants";
+import useFormValidation from "../../Hooks/useFormValidation";
+import { inputErrorMessage, errorMessage } from "../../utils/Constants";
 
 const validationMessages = {
   name: inputErrorMessage.name,
@@ -10,8 +10,9 @@ const validationMessages = {
   password: inputErrorMessage.password,
 };
 
-export default function Register({ handleRegister }) {
+export default function Register({ handleLogin }) {
   const { errors, resetErrors, handleChange } = useFormValidation();
+  const [loginError, setLoginError] = useState("");
 
   const [formValue, setFormValue] = useState({
     name: "",
@@ -21,6 +22,7 @@ export default function Register({ handleRegister }) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [registrationError, setRegistrationError] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleChangeValue = (e) => {
     const { name, value } = e.target;
@@ -30,6 +32,12 @@ export default function Register({ handleRegister }) {
     });
 
     handleChange(e);
+    const form = e.target.closest("form");
+    if (form) {
+      const isValid = form.checkValidity();
+      setIsFormValid(isValid);
+    }
+
     if (!value) {
       resetErrors({ ...errors, [name]: "" });
     } else {
@@ -44,13 +52,23 @@ export default function Register({ handleRegister }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(formValue);
-
     setIsLoading(true);
     mainApi
       .getRegisterUser(formValue)
       .then(() => {
-        handleRegister();
+        const { email, password } = formValue;
+        mainApi
+          .getLoginUser(formValue)
+          .then((res) => {
+            localStorage.setItem("jwt", res.token);
+            handleLogin();
+          })
+          .catch((err) => {
+            setLoginError(errorMessage.login);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
       })
       .catch((err) => {
         if (err.response) {
@@ -70,6 +88,7 @@ export default function Register({ handleRegister }) {
 
   return (
     <AuthForm
+      isFormValid={isFormValid}
       title="Добро пожаловать!"
       name="register"
       submitButtonText={isLoading ? "Регистрация..." : "Зарегистрироваться"}
@@ -157,7 +176,9 @@ export default function Register({ handleRegister }) {
           </span>
         )}
       </label>
-      <span className="auth-form-input-error-span">{registrationError}</span>
+      <span className="auth-form-input-error-span">
+        {registrationError || loginError}
+      </span>
     </AuthForm>
   );
 }

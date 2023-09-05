@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import AuthForm from "../AuthForm/AuthForm";
 import mainApi from "../../utils/MainApi";
-import useFormValidation from "../Hooks/useFormValidation";
-import { errorMessage, inputErrorMessage } from "../../utils/constants";
+import useFormValidation from "../../Hooks/useFormValidation";
+import { errorMessage, inputErrorMessage } from "../../utils/Constants";
 
 const validationMessages = {
   email: inputErrorMessage.email,
-  password: inputErrorMessage.password,
+  password: inputErrorMessage.passwordLogin,
 };
 
 export default function Login({ handleLogin }) {
@@ -15,6 +15,7 @@ export default function Login({ handleLogin }) {
     email: "",
     password: "",
   });
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const [loginError, setLoginError] = useState("");
   const { errors, resetErrors, handleChange } = useFormValidation();
@@ -27,6 +28,13 @@ export default function Login({ handleLogin }) {
     });
 
     handleChange(e);
+
+    const form = e.target.closest("form");
+    if (form) {
+      const isValid = form.checkValidity();
+      setIsFormValid(isValid);
+    }
+
     if (!value) {
       resetErrors({ ...errors, [name]: "" });
     } else {
@@ -60,6 +68,7 @@ export default function Login({ handleLogin }) {
   return (
     <AuthForm
       onSubmit={handleSubmit}
+      isFormValid={isFormValid}
       title="Рады видеть!"
       name="login"
       submitButtonText={isLoading ? "Вход..." : "Войти"}
@@ -77,6 +86,7 @@ export default function Login({ handleLogin }) {
           }`}
           type="email"
           name="email"
+          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
           required
           id="email-input"
           placeholder="example@gmail.ru"
@@ -103,6 +113,7 @@ export default function Login({ handleLogin }) {
           type="password"
           name="password"
           required
+          minLength={8}
           id="password-input"
           placeholder="Введите ваш пароль"
         ></input>

@@ -1,4 +1,4 @@
-import { MAIN_API } from "./constants";
+import { MAIN_API, MOVIES_API } from "./Constants";
 
 class MainApi {
   constructor(config) {
@@ -7,19 +7,12 @@ class MainApi {
   }
 
   _handleResponce(res) {
-    console.log("Response status:", res.status);
-
-    if (res.ok) {
-      return res.json();
+    if (!res.ok) {
+      return Promise.reject({
+        status: `Ошибка: ${res.status}`,
+      });
     }
-
-    if (res.status === 401) {
-      console.log("Unauthorized error:", res);
-    }
-
-    console.log("Error response:", res);
-
-    return Promise.reject(new Error(`Ошибка: ${res.status}`));
+    return res.json();
   }
 
   getRegisterUser({ name, email, password }) {
@@ -65,7 +58,7 @@ class MainApi {
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: {
-        ...this._headers,
+        "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
       body: JSON.stringify({
@@ -111,7 +104,6 @@ class MainApi {
   }
 
   saveMovie(movie) {
-    console.log("Saving movie with data:", movie);
     return fetch(`${this._url}/movies`, {
       method: "POST",
       headers: {
@@ -124,9 +116,9 @@ class MainApi {
         duration: movie.duration,
         year: movie.year,
         description: movie.description,
-        image: movie.image,
+        image: `${MOVIES_API.url}${movie.image.url}`,
         trailerLink: movie.trailerLink,
-        thumbnail: movie.thumbnail,
+        thumbnail: `${MOVIES_API.url}${movie.image.formats.thumbnail.url}`,
         movieId: movie.id,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,

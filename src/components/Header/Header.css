@@ -13,7 +13,7 @@
 }
 
 .header__logo:hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 
 .header__buttons {
@@ -62,7 +62,7 @@
 }
 
 .header__link:hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 
 .header__link_active {
@@ -75,7 +75,7 @@
 }
 
 .header__link_active:hover {
-  opacity: .6;
+  opacity: 0.6;
 }
 
 .header__button-profile {
@@ -91,31 +91,13 @@
   border: none;
   background-color: white;
   padding: 0;
-  display: none;
+  display: block;
   transition: all 0.2s ease-out;
 }
 
 .header__burger-button:hover {
   opacity: 0.6;
   cursor: pointer;
-}
-
-@media screen and (max-width: 768px) {
-  .header__burger-button {
-    display: block;
-  }
-
-  .header__buttons {
-    display: none;
-  }
-
-  .header__list {
-    display: none;
-  }
-
-  .header__button-profile {
-    display: none;
-  }
 }
 
 .header__img-profile {
@@ -131,7 +113,6 @@
 @media screen and (max-width: 480px) {
   .header {
     width: calc(100% - 2 * 14px);
-    
   }
 
   .header__no-auth {
@@ -142,5 +123,9 @@
     font-size: 10px;
     font-weight: 500;
     line-height: 16px;
+  }
+
+  .header__buttons {
+    gap: 14px;
   }
 }
